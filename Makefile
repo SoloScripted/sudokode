@@ -1,11 +1,12 @@
 # Makefile for the sudokode Flutter project
 FVM_INSTALL_URL := https://fvm.app/install.sh
 
-.PHONY: all get run build-web clean analyze format l10n help setup
+.PHONY: all get run build-web clean analyze format l10n help setup tag
 
+# Default target, runs when you just type `make`
+all: help
 
-all: help ## Default target, runs when you just type `make`
-
+# Target to set up the Flutter project, installing FVM if necessary
 setup: ## Sets up the project: installs FVM (if needed) and all dependencies.
 	@echo "Checking for FVM installation..."
 	@if ! command -v fvm >/dev/null 2>&1; then \
@@ -48,7 +49,7 @@ clean: ## Remove build artifacts.
 analyze: ## Analyze the project's source code for possible errors.
 	fvm flutter analyze
 
-format: ## Format all dart files. Pass CHECK=true to exit if not formatted.
+format: ## Format all .dart files. Pass CHECK=true to exit if not formatted.
 	@if [ "$(CHECK)" = "true" ]; then \
 		echo "Checking for formatting issues..."; \
 		fvm dart format --output=none --set-exit-if-changed .; \
@@ -57,8 +58,31 @@ format: ## Format all dart files. Pass CHECK=true to exit if not formatted.
 		fvm dart format .; \
 	fi
 
-l10n:  ## Generate localization files.
+l10n: ## Generate localization files.
 	fvm flutter gen-l10n
+
+tag: ## Creates and pushes a git tag from the pubspec.yaml version.
+	@if ! git diff-index --quiet HEAD --; then \
+		echo "Error: You have uncommitted changes. Please commit or stash them before tagging."; \
+		exit 1; \
+	fi
+	@BRANCH=$$(git rev-parse --abbrev-ref HEAD); \
+	if [ "$$BRANCH" != "main" ]; then \
+		echo "Error: Tagging is only allowed from the 'main' branch. You are currently on '$$BRANCH'."; \
+		exit 1; \
+	fi \
+	@VERSION=$$(awk '/^version:/ {print $$2}' pubspec.yaml); \
+	if [ -z "$$VERSION" ]; then \
+		echo "Error: Could not find version in pubspec.yaml"; \
+		exit 1; \
+	fi; \
+	if [ "$$BRANCH" != "main" ]; then \
+		echo "Error: Tagging is only allowed from the 'main' branch. You are currently on '$$BRANCH'."; \
+		exit 1; \
+	fi \
+	@git tag -a "v$$VERSION" -m "Release v$$VERSION"; \
+	@git push origin "v$$VERSION"; \
+	@echo "Successfully tagged and pushed v$$VERSION."
 
 help: ## Show this help message.
 	@echo "Sudokode Flutter Project Makefile"
@@ -66,4 +90,4 @@ help: ## Show this help message.
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Available targets:"
-	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
