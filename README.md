@@ -41,7 +41,7 @@ Here are some of the most common commands. For a full list, run `make help`.
 | :------------- | :------------------------------------------- |
 | `make setup`   | Sets up the project for the first time.      |
 | `make run`     | Runs the app in debug mode.                  |
-| `make build-web` | Creates a release build for the web.         |
+| `make build-web` | Creates a release build for GitHub Pages.    |
 | `make analyze` | Analyzes the Dart source code for issues.    |
 | `make format`  | Formats all Dart files in the project.       |
 | `make clean`   | Removes all build artifacts.                 |
