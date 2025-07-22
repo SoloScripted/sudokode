@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
+      url: 'https://soloscripted.com/sudokode/'
 
     steps:
       - name: Checkout repository
