@@ -28,7 +28,7 @@ jobs:
           cache: true
 
       - name: Get dependencies
-        run: make get
+        run: make setup
 
       - name: Build web application
         run: make build-web
