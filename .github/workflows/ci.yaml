@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version-file: .flutter-version
+          cache: true
+
+      - name: Get dependencies
+        run: make setup
+
+      - name: Check formatting
+        run: make format CHECK=true
+
+      - name: Analyze code
+        run: make analyze
+
+      - name: Build web application
+        run: make build-web

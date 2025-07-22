@@ -1,0 +1,19 @@
+{
+    "@@locale": "de",
+    "congratulations": "Herzlichen Glückwunsch!",
+    "copyright": "© 2025 SoloScripted",
+    "gameScreenTitle": "Sudokode",
+    "gameScreenTitlePart1": "Sudo ",
+    "gameScreenTitlePart2": "Kode",
+    "homeScreenSubtitle": "Das Sudoku-Erlebnis, bei dem sich Geist, Zahlen und KI treffen.",
+    "newGame": "Neues Spiel",
+    "newGameDialogContent": "Sind Sie sicher, dass Sie ein neues Spiel starten möchten? Ihr aktueller Fortschritt geht verloren.",
+    "newGameDialogTitle": "Neues Spiel starten?",
+    "playAgain": "Nochmal spielen",
+    "puzzleSolved": "Du hast das Rätsel gelöst.",
+    "reset": "Zurücksetzen",
+    "resetDialogContent": "Sind Sie sicher, dass Sie das Spielfeld leeren und von vorne beginnen möchten?",
+    "resetDialogNo": "Nein",
+    "resetDialogTitle": "Spielfeld zurücksetzen?",
+    "resetDialogYes": "Ja"
+}
