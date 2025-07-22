@@ -4,7 +4,6 @@
 # FVM management, dependency fetching, building, analysis, and more.
 # It dynamically selects the shell (zsh for macOS, bash for others) for recipes.
 # ==============================================================================
-WEB_BASE_PATH := /sudokode/
 FVM_INSTALL_URL := https://fvm.app/install.sh
 UNAME_S := $(shell uname -s)
 VERSION=$(shell awk '/^version:/ {print $$2}' pubspec.yaml)
@@ -93,7 +92,7 @@ run: ## Run the app in debug mode.
 
 # build-web: Build the web application.
 build-web: ## Build the web application.
-	fvm flutter build web --base-href $(WEB_BASE_PATH)
+	fvm flutter build web
 
 # clean: Remove build artifacts.
 clean: ## Remove build artifacts.
