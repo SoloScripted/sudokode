@@ -1,30 +1,30 @@
 name: sudokode
-description: A simple Sudoku game built with Flutter.
-publish_to: 'none' # Remove this line if you want to publish to pub.dev
+description: An AI-powered Sudoku game built with Flutter and Dart. Challenge yourself with generated puzzles and get a little help when you're stuck.
+publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
+  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
-  flutter_localizations: # Eklendi
-    sdk: flutter         # Eklendi
-  cupertino_icons: ^1.0.2
-  intl: ^0.20.2 # Eklendi
+  flutter_localizations:
+    sdk: flutter
   flutter_shared_components:
     git:
-        url: https://github.com/SoloScripted/flutter-shared-components.git
+      url: https://github.com/SoloScripted/flutter-shared-components.git
+  intl: ^0.20.0
 
 dev_dependencies:
+  flutter_lints: ^2.0.3
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
 
 flutter:
-  generate: true # Eklendi
+  generate: true
   uses-material-design: true
 
   assets:
