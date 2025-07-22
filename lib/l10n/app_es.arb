@@ -1,0 +1,19 @@
+{
+    "@@locale": "es",
+    "congratulations": "¡Felicidades!",
+    "copyright": "© 2025 SoloScripted",
+    "gameScreenTitle": "Sudokode",
+    "gameScreenTitlePart1": "Sudo ",
+    "gameScreenTitlePart2": "Kode",
+    "homeScreenSubtitle": "La experiencia de Sudoku donde la mente, los números y la IA se encuentran.",
+    "newGame": "Nuevo Juego",
+    "newGameDialogContent": "¿Estás seguro de que quieres empezar un juego nuevo? Tu progreso actual se perderá.",
+    "newGameDialogTitle": "¿Empezar Nuevo Juego?",
+    "playAgain": "Jugar de Nuevo",
+    "puzzleSolved": "Has resuelto el puzle.",
+    "reset": "Reiniciar",
+    "resetDialogContent": "¿Estás seguro de que quieres limpiar el tablero y empezar de nuevo?",
+    "resetDialogNo": "No",
+    "resetDialogTitle": "¿Reiniciar Tablero?",
+    "resetDialogYes": "Sí"
+}

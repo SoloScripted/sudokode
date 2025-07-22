@@ -1,0 +1,61 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for German (`de`).
+class AppLocalizationsDe extends AppLocalizations {
+  AppLocalizationsDe([String locale = 'de']) : super(locale);
+
+  @override
+  String get congratulations => 'Herzlichen Glückwunsch!';
+
+  @override
+  String get copyright => '© 2025 SoloScripted';
+
+  @override
+  String get gameScreenTitle => 'Sudokode';
+
+  @override
+  String get gameScreenTitlePart1 => 'Sudo ';
+
+  @override
+  String get gameScreenTitlePart2 => 'Kode';
+
+  @override
+  String get homeScreenSubtitle =>
+      'Das Sudoku-Erlebnis, bei dem sich Geist, Zahlen und KI treffen.';
+
+  @override
+  String get newGame => 'Neues Spiel';
+
+  @override
+  String get newGameDialogContent =>
+      'Sind Sie sicher, dass Sie ein neues Spiel starten möchten? Ihr aktueller Fortschritt geht verloren.';
+
+  @override
+  String get newGameDialogTitle => 'Neues Spiel starten?';
+
+  @override
+  String get playAgain => 'Nochmal spielen';
+
+  @override
+  String get puzzleSolved => 'Du hast das Rätsel gelöst.';
+
+  @override
+  String get reset => 'Zurücksetzen';
+
+  @override
+  String get resetDialogContent =>
+      'Sind Sie sicher, dass Sie das Spielfeld leeren und von vorne beginnen möchten?';
+
+  @override
+  String get resetDialogNo => 'Nein';
+
+  @override
+  String get resetDialogTitle => 'Spielfeld zurücksetzen?';
+
+  @override
+  String get resetDialogYes => 'Ja';
+}
