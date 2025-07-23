@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:sudokode/models/sudoku_board.dart';
@@ -24,6 +25,10 @@ class _GameScreenState extends State<GameScreen> {
   late SudokuBoard _sudokuBoard;
   int? _selectedRow;
   int? _selectedCol;
+  final Stopwatch _stopwatch = Stopwatch();
+  Timer? _timer;
+  String _elapsedTime = '00:00';
+  bool _isPaused = false;
 
   bool get _isCellSelected => _selectedRow != null && _selectedCol != null;
 
@@ -32,9 +37,59 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     _sudokuBoard = SudokuBoard();
     _sudokuBoard.generatePuzzle();
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _stopwatch.stop();
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _startTimer() {
+    _stopwatch.start();
+    // Update the UI every second.
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_stopwatch.isRunning) {
+        setState(() {
+          _elapsedTime = _formatElapsedTime(_stopwatch.elapsed);
+        });
+      }
+    });
+  }
+
+  void _stopTimer() {
+    _stopwatch.stop();
+    _timer?.cancel();
+  }
+
+  void _resetTimer() {
+    _stopwatch.stop();
+    _stopwatch.reset();
+    setState(() {
+      _elapsedTime = '00:00';
+    });
+  }
+
+  void _togglePause() {
+    if (_sudokuBoard.isSolved()) {
+      return;
+    }
+    setState(() {
+      _isPaused = !_isPaused;
+      if (_isPaused) {
+        _stopwatch.stop();
+      } else {
+        _stopwatch.start();
+      }
+    });
   }
 
   void _onCellTap(int row, int col) {
+    if (_isPaused) {
+      return;
+    }
     setState(() {
       _selectedRow = row;
       _selectedCol = col;
@@ -42,11 +97,15 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _onNumberTap(int number) {
+    if (_isPaused) {
+      return;
+    }
     if (_isCellSelected) {
       if (!_sudokuBoard.isInitialValue(_selectedRow!, _selectedCol!)) {
         setState(() {
           _sudokuBoard.setValue(_selectedRow!, _selectedCol!, number);
           if (_sudokuBoard.isSolved()) {
+            _stopTimer();
             _showSolvedDialog();
           }
         });
@@ -55,6 +114,9 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _onEraseTap() {
+    if (_isPaused) {
+      return;
+    }
     if (_isCellSelected) {
       if (!_sudokuBoard.isInitialValue(_selectedRow!, _selectedCol!)) {
         setState(() {
@@ -65,12 +127,16 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _onHintTap() {
+    if (_isPaused) {
+      return;
+    }
     final hintCell = _sudokuBoard.useHint();
     if (hintCell != null) {
       setState(() {
         _selectedRow = hintCell.$1;
         _selectedCol = hintCell.$2;
         if (_sudokuBoard.isSolved()) {
+          _stopTimer();
           _showSolvedDialog();
         }
       });
@@ -83,6 +149,9 @@ class _GameScreenState extends State<GameScreen> {
       _sudokuBoard.generatePuzzle();
       _selectedRow = null;
       _selectedCol = null;
+      _resetTimer();
+      _startTimer();
+      _isPaused = false;
     });
   }
 
@@ -139,6 +208,9 @@ class _GameScreenState extends State<GameScreen> {
       _sudokuBoard.resetBoard();
       _selectedRow = null;
       _selectedCol = null;
+      _resetTimer();
+      _startTimer();
+      _isPaused = false;
     });
   }
 
@@ -150,6 +222,13 @@ class _GameScreenState extends State<GameScreen> {
       content: l10n.resetDialogContent,
       onConfirm: _resetBoard,
     );
+  }
+
+  String _formatElapsedTime(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$twoDigitMinutes:$twoDigitSeconds";
   }
 
   Future<void> _showSolvedDialog() async {
@@ -167,6 +246,7 @@ class _GameScreenState extends State<GameScreen> {
         Animation<double> secondaryAnimation,
       ) {
         return SolvedDialog(
+          elapsedTime: _elapsedTime,
           onPlayAgain: () {
             Navigator.of(context).pop();
             _newGame();
@@ -205,9 +285,12 @@ class _GameScreenState extends State<GameScreen> {
                     SizedBox(
                       width: componentWidth,
                       child: GameHeader(
+                        elapsedTime: _elapsedTime,
                         isBoardModified: _sudokuBoard.isModified(),
                         onResetTap: () => _onResetTap(context),
                         onNewGameTap: () => _onNewGameTap(context),
+                        onTimerTap: _togglePause,
+                        isPaused: _isPaused,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -221,18 +304,30 @@ class _GameScreenState extends State<GameScreen> {
                           selectedRow: _selectedRow,
                           selectedCol: _selectedCol,
                           onCellTap: _onCellTap,
+                          isPaused: _isPaused,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: componentWidth,
-                      child: NumberPad(
-                        onNumberTap: _onNumberTap,
-                        onEraseTap: _onEraseTap,
-                        onHintTap: _onHintTap,
-                        remainingHints: _sudokuBoard.remainingHints,
-                        getOccurrences: _sudokuBoard.countOccurrences,
+                    AnimatedOpacity(
+                      opacity: _isPaused ? 0.0 : 1.0,
+                      duration: const Duration(milliseconds: 300),
+                      child: IgnorePointer(
+                        ignoring: _isPaused,
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              width: componentWidth,
+                              child: NumberPad(
+                                onNumberTap: _onNumberTap,
+                                onEraseTap: _onEraseTap,
+                                onHintTap: _onHintTap,
+                                remainingHints: _sudokuBoard.remainingHints,
+                                getOccurrences: _sudokuBoard.countOccurrences,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

@@ -15,5 +15,8 @@
     "resetDialogContent": "¿Estás seguro de que quieres limpiar el tablero y empezar de nuevo?",
     "resetDialogNo": "No",
     "resetDialogTitle": "¿Reiniciar Tablero?",
-    "resetDialogYes": "Sí"
+    "resetDialogYes": "Sí",
+    "solvedDialogTimeLabel": "Tiempo",
+    "newShort": "New",
+    "resetShort": "Reset"
 }

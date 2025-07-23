@@ -15,5 +15,8 @@
     "resetDialogContent": "Are you sure you want to clear the board and start over?",
     "resetDialogNo": "No",
     "resetDialogTitle": "Reset Board?",
-    "resetDialogYes": "Yes"
+    "resetDialogYes": "Yes",
+    "solvedDialogTimeLabel": "Time",
+    "newShort": "New",
+    "resetShort": "Reset"
 }

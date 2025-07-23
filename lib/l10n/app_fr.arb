@@ -15,5 +15,8 @@
     "resetDialogContent": "Êtes-vous sûr de vouloir effacer la grille et recommencer ?",
     "resetDialogNo": "Non",
     "resetDialogTitle": "Réinitialiser la grille ?",
-    "resetDialogYes": "Oui"
+    "resetDialogYes": "Oui",
+    "solvedDialogTimeLabel": "Temps",
+    "newShort": "New",
+    "resetShort": "Reset"
 }

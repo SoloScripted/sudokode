@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 const _initialValueColor = Color(0xFF1565C0);
@@ -9,6 +10,7 @@ class SudokuCell extends StatelessWidget {
   final bool isConflict;
   final VoidCallback? onTap;
   final Color cellBackgroundColor;
+  final bool isPaused;
 
   const SudokuCell({
     super.key,
@@ -18,6 +20,7 @@ class SudokuCell extends StatelessWidget {
     required this.isConflict,
     required this.onTap,
     required this.cellBackgroundColor,
+    required this.isPaused,
   });
 
   @override
@@ -46,13 +49,20 @@ class SudokuCell extends StatelessWidget {
               )
             ],
           ),
-          child: Center(
-            child: Text(
-              value == 0 ? '' : value.toString(),
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: isInitial ? _initialValueColor : colorScheme.onSurface,
+          child: ImageFiltered(
+            imageFilter: ImageFilter.blur(
+              sigmaX: isPaused ? 4.0 : 0.0,
+              sigmaY: isPaused ? 4.0 : 0.0,
+              tileMode: TileMode.decal,
+            ),
+            child: Center(
+              child: Text(
+                value == 0 ? '' : value.toString(),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: isInitial ? _initialValueColor : colorScheme.onSurface,
+                ),
               ),
             ),
           ),

@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:sudokode/l10n/app_localizations.dart';
 
 class SolvedDialog extends StatelessWidget {
+  final String elapsedTime;
   final VoidCallback onPlayAgain;
 
-  const SolvedDialog({super.key, required this.onPlayAgain});
+  const SolvedDialog({
+    super.key,
+    required this.elapsedTime,
+    required this.onPlayAgain,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +55,12 @@ class SolvedDialog extends StatelessWidget {
                   l10n.puzzleSolved,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  '${l10n.solvedDialogTimeLabel}: $elapsedTime',
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 24),
                 SizedBox(

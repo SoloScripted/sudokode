@@ -3,15 +3,21 @@ import 'package:flutter_shared_components/flutter_shared_components.dart';
 import 'package:sudokode/l10n/app_localizations.dart';
 
 class GameHeader extends StatelessWidget {
+  final String elapsedTime;
   final bool isBoardModified;
   final VoidCallback onResetTap;
   final VoidCallback onNewGameTap;
+  final VoidCallback onTimerTap;
+  final bool isPaused;
 
   const GameHeader({
     super.key,
+    required this.elapsedTime,
     required this.isBoardModified,
     required this.onResetTap,
     required this.onNewGameTap,
+    required this.onTimerTap,
+    required this.isPaused,
   });
 
   Widget _buildHeaderButton({
@@ -23,20 +29,57 @@ class GameHeader extends StatelessWidget {
   }) {
     return StyledActionButton(
       onPressed: onPressed,
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: Row(
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
             icon,
             color: onSurfaceColor,
+            size: 20,
           ),
-          const SizedBox(width: 8),
+          const SizedBox(height: 4),
           Text(
             text,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: onSurfaceColor,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTimerButton({
+    required BuildContext context,
+    required String text,
+    required Color onSurfaceColor,
+  }) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final timerColor = isPaused ? colorScheme.secondary : onSurfaceColor;
+    final icon = isPaused ? Icons.pause_circle_outline : Icons.timer_outlined;
+
+    return StyledActionButton(
+      onPressed: onTimerTap,
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            color: timerColor,
+            size: 20,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            text,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.bold,
+              color: timerColor,
+              fontSize: 12,
             ),
           ),
         ],
@@ -105,26 +148,48 @@ class GameHeader extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Visibility(
-          visible: isBoardModified,
-          maintainSize: true,
-          maintainAnimation: true,
-          maintainState: true,
-          child: _buildHeaderButton(
-            context: context,
-            onPressed: onResetTap,
-            icon: Icons.refresh,
-            text: l10n.reset,
-            onSurfaceColor: colorScheme.onSurface,
-          ),
-        ),
-        const SizedBox(width: 8),
-        _buildHeaderButton(
-          context: context,
-          onPressed: onNewGameTap,
-          icon: Icons.autorenew,
-          text: l10n.newGame,
-          onSurfaceColor: colorScheme.onSurface,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AnimatedOpacity(
+              opacity: isPaused ? 0.0 : 1.0,
+              duration: const Duration(milliseconds: 300),
+              child: IgnorePointer(
+                ignoring: isPaused,
+                child: Row(
+                  children: [
+                    Visibility(
+                      visible: isBoardModified,
+                      maintainSize: true,
+                      maintainAnimation: true,
+                      maintainState: true,
+                      child: _buildHeaderButton(
+                        context: context,
+                        onPressed: onResetTap,
+                        icon: Icons.refresh_rounded,
+                        text: l10n.resetShort,
+                        onSurfaceColor: colorScheme.onSurface,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    _buildHeaderButton(
+                      context: context,
+                      onPressed: onNewGameTap,
+                      icon: Icons.autorenew_rounded,
+                      text: l10n.newShort,
+                      onSurfaceColor: colorScheme.onSurface,
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+                ),
+              ),
+            ),
+            _buildTimerButton(
+              context: context,
+              text: elapsedTime,
+              onSurfaceColor: colorScheme.onSurface.withOpacity(0.85),
+            ),
+          ],
         ),
       ],
     );
