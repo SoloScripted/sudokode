@@ -7,6 +7,7 @@ An AI-powered Sudoku game built with Flutter and Dart. Challenge yourself with g
 -   **Responsive UI**: Adapts to different screen sizes for a great experience on web and mobile.
 -   **Dynamic Puzzle Generation**: Every new game provides a unique, solvable Sudoku puzzle.
 -   **Conflict Highlighting**: Automatically highlights numbers that conflict in a row, column, or 3x3 box.
+-   **Difficulty Levels**: Choose from Easy, Medium, Hard, or Expert to match your skill level.
 -   **Interactive Number Pad**: Shows how many of each number are left to be placed.
 -   **Hint System**: Get up to 5 hints per game to help you when you're stuck.
 -   **Game Timer**: Tracks completion time.
@@ -49,7 +50,6 @@ Here are some of the most common commands. For a full list, run `make help`.
 | `make help`    | Displays a list of all available commands.   |
 
 ## Future Enhancements
--   Difficulty levels (Easy, Medium, Hard, Expert).
 -   Save and load game state.
 -   Enhanced animations and sound effects.
 -   User statistics and leaderboards.

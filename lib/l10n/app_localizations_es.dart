@@ -63,8 +63,23 @@ class AppLocalizationsEs extends AppLocalizations {
   String get solvedDialogTimeLabel => 'Tiempo';
 
   @override
-  String get newShort => 'New';
+  String get newShort => 'Nuevo';
 
   @override
-  String get resetShort => 'Reset';
+  String get resetShort => 'Reiniciar';
+
+  @override
+  String get selectDifficulty => 'Seleccionar Dificultad';
+
+  @override
+  String get difficultyEasy => 'Fácil';
+
+  @override
+  String get difficultyMedium => 'Medio';
+
+  @override
+  String get difficultyHard => 'Difícil';
+
+  @override
+  String get difficultyExpert => 'Experto';
 }

@@ -17,6 +17,11 @@
     "resetDialogTitle": "Réinitialiser la grille ?",
     "resetDialogYes": "Oui",
     "solvedDialogTimeLabel": "Temps",
-    "newShort": "New",
-    "resetShort": "Reset"
+    "newShort": "Nouveau",
+    "resetShort": "Réinit.",
+    "selectDifficulty": "Sélectionner la difficulté",
+    "difficultyEasy": "Facile",
+    "difficultyMedium": "Moyen",
+    "difficultyHard": "Difficile",
+    "difficultyExpert": "Expert"
 }

@@ -16,5 +16,12 @@
     "resetDialogNo": "Hayır",
     "resetDialogTitle": "Tahtayı Sıfırla?",
     "resetDialogYes": "Evet",
-    "solvedDialogTimeLabel": "Süre"
+    "solvedDialogTimeLabel": "Süre",
+    "newShort": "Yeni",
+    "resetShort": "Sıfırla",
+    "selectDifficulty": "Zorluk Seçin",
+    "difficultyEasy": "Kolay",
+    "difficultyMedium": "Orta",
+    "difficultyHard": "Zor",
+    "difficultyExpert": "Uzman"
 }

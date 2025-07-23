@@ -18,5 +18,10 @@
     "resetDialogYes": "Yes",
     "solvedDialogTimeLabel": "Time",
     "newShort": "New",
-    "resetShort": "Reset"
+    "resetShort": "Reset",
+    "selectDifficulty": "Select Difficulty",
+    "difficultyEasy": "Easy",
+    "difficultyMedium": "Medium",
+    "difficultyHard": "Hard",
+    "difficultyExpert": "Expert"
 }

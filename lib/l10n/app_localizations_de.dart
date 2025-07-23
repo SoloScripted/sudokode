@@ -66,5 +66,20 @@ class AppLocalizationsDe extends AppLocalizations {
   String get newShort => 'Neu';
 
   @override
-  String get resetShort => 'Reset';
+  String get resetShort => 'Zurücksetzen';
+
+  @override
+  String get selectDifficulty => 'Schwierigkeit wählen';
+
+  @override
+  String get difficultyEasy => 'Einfach';
+
+  @override
+  String get difficultyMedium => 'Mittel';
+
+  @override
+  String get difficultyHard => 'Schwer';
+
+  @override
+  String get difficultyExpert => 'Experte';
 }

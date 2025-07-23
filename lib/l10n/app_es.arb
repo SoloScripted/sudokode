@@ -17,6 +17,11 @@
     "resetDialogTitle": "¿Reiniciar Tablero?",
     "resetDialogYes": "Sí",
     "solvedDialogTimeLabel": "Tiempo",
-    "newShort": "New",
-    "resetShort": "Reset"
+    "newShort": "Nuevo",
+    "resetShort": "Reiniciar",
+    "selectDifficulty": "Seleccionar Dificultad",
+    "difficultyEasy": "Fácil",
+    "difficultyMedium": "Medio",
+    "difficultyHard": "Difícil",
+    "difficultyExpert": "Experto"
 }
