@@ -1,18 +1,21 @@
 import 'dart:math';
 
+import 'package:sudokode/models/difficulty.dart';
+
 class SudokuBoard {
   late List<List<int>> _board;
   late List<List<int>> _solutionBoard;
   late List<List<bool>> _initialValues;
   late List<List<bool>> _conflicts;
   int _hintsUsed = 0;
-  static const int maxHints = 5;
+  late int maxHints;
 
   SudokuBoard() {
     _board = List.generate(9, (_) => List.generate(9, (_) => 0));
     _solutionBoard = List.generate(9, (_) => List.generate(9, (_) => 0));
     _initialValues = List.generate(9, (_) => List.generate(9, (_) => false));
     _conflicts = List.generate(9, (_) => List.generate(9, (_) => false));
+    maxHints = 0; // Default value to prevent late initialization errors.
   }
 
   int getValue(int row, int col) => _board[row][col];
@@ -101,7 +104,10 @@ class SudokuBoard {
     return (row, col);
   }
 
-  void generatePuzzle() {
+  void generatePuzzle(Difficulty difficulty) {
+    maxHints = difficulty.maxHints;
+    _hintsUsed = 0;
+
     _fillBoard();
 
     _solutionBoard = List.generate(9, (r) => List.from(_board[r]));
@@ -114,7 +120,7 @@ class SudokuBoard {
       }
     }
 
-    _removeNumbers(45);
+    _removeNumbers(difficulty.emptyCells);
     validateBoard();
   }
 

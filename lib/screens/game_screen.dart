@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:sudokode/models/sudoku_board.dart';
+import 'package:sudokode/models/difficulty.dart';
 import 'package:sudokode/widgets/sudoku_grid.dart';
 import 'package:sudokode/widgets/game_header.dart';
 import 'package:sudokode/widgets/number_pad.dart';
@@ -29,15 +30,19 @@ class _GameScreenState extends State<GameScreen> {
   Timer? _timer;
   String _elapsedTime = '00:00';
   bool _isPaused = false;
+  Difficulty _currentDifficulty = Difficulty.medium;
 
   bool get _isCellSelected => _selectedRow != null && _selectedCol != null;
 
   @override
   void initState() {
     super.initState();
+    // Initialize with an empty board. The difficulty selection dialog will
+    // be shown after the first frame, which will then generate the puzzle.
     _sudokuBoard = SudokuBoard();
-    _sudokuBoard.generatePuzzle();
-    _startTimer();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _selectInitialDifficulty();
+    });
   }
 
   @override
@@ -66,10 +71,9 @@ class _GameScreenState extends State<GameScreen> {
 
   void _resetTimer() {
     _stopwatch.stop();
+    _timer?.cancel();
     _stopwatch.reset();
-    setState(() {
-      _elapsedTime = '00:00';
-    });
+    _elapsedTime = '00:00';
   }
 
   void _togglePause() {
@@ -143,16 +147,98 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
+  void _initializeNewGame() {
+    _sudokuBoard = SudokuBoard();
+    _sudokuBoard.generatePuzzle(_currentDifficulty);
+    _selectedRow = null;
+    _selectedCol = null;
+    _isPaused = false;
+    _resetTimer();
+    _startTimer();
+  }
+
   void _newGame() {
-    setState(() {
-      _sudokuBoard = SudokuBoard();
-      _sudokuBoard.generatePuzzle();
-      _selectedRow = null;
-      _selectedCol = null;
-      _resetTimer();
-      _startTimer();
-      _isPaused = false;
-    });
+    setState(_initializeNewGame);
+  }
+
+  Future<Difficulty?> _showDifficultySelectionDialog(
+      {bool isDismissible = true}) async {
+    final l10n = AppLocalizations.of(context)!;
+    final double dialogWidth =
+        min(MediaQuery.of(context).size.shortestSide * 0.7, 300.0);
+    return await showDialog<Difficulty>(
+      context: context,
+      barrierDismissible: isDismissible,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              const Icon(Icons.bar_chart_rounded),
+              const SizedBox(width: 10),
+              Text(l10n.selectDifficulty),
+            ],
+          ),
+          content: SizedBox(
+            width: dialogWidth,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: _buildDifficultyButtons(context),
+            ),
+          ),
+        );
+      },
+    );
+  }
+  List<Widget> _buildDifficultyButtons(BuildContext context) {
+    return Difficulty.values.map((difficulty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        child: SizedBox(
+          width: double.infinity,
+          child: OutlinedButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(difficulty.icon),
+                const SizedBox(width: 8),
+                Text(
+                  difficulty.localizedName(context),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            onPressed: () => Navigator.of(context).pop(difficulty),
+          ),
+        ),
+              );
+    }).toList();
+  }
+
+  Future<void> _selectInitialDifficulty() async {
+    // This is called once when the app starts. It's not dismissible.
+    final Difficulty? selectedDifficulty =
+        await _showDifficultySelectionDialog(isDismissible: false);
+
+    // selectedDifficulty should not be null, but as a fallback,
+    // default to easy.
+    if (mounted) {
+      setState(() {
+        _currentDifficulty = selectedDifficulty ?? Difficulty.easy;
+        _initializeNewGame();
+      });
+    }
+  }
+
+  Future<void> _showDifficultyDialog() async {
+    // This is called from the "New Game" button.
+    final Difficulty? selectedDifficulty = await _showDifficultySelectionDialog();
+
+    if (selectedDifficulty != null && mounted) {
+      setState(() {
+        _currentDifficulty = selectedDifficulty;
+        _initializeNewGame();
+      });
+    }
   }
 
   Future<void> _handleConfirmationAction({
@@ -194,13 +280,17 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _onNewGameTap(BuildContext dialogContext) {
-    final l10n = AppLocalizations.of(dialogContext)!;
-    _handleConfirmationAction(
-      context: dialogContext,
-      title: l10n.newGameDialogTitle,
-      content: l10n.newGameDialogContent,
-      onConfirm: _newGame,
-    );
+    if (_sudokuBoard.isModified()) {
+      final l10n = AppLocalizations.of(dialogContext)!;
+      _handleConfirmationAction(
+        context: dialogContext,
+        title: l10n.newGameDialogTitle,
+        content: l10n.newGameDialogContent,
+        onConfirm: _showDifficultyDialog,
+      );
+    } else {
+      _showDifficultyDialog();
+    }
   }
 
   void _resetBoard() {

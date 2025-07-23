@@ -63,8 +63,23 @@ class AppLocalizationsTr extends AppLocalizations {
   String get solvedDialogTimeLabel => 'Süre';
 
   @override
-  String get newShort => 'New';
+  String get newShort => 'Yeni';
 
   @override
-  String get resetShort => 'Reset';
+  String get resetShort => 'Sıfırla';
+
+  @override
+  String get selectDifficulty => 'Zorluk Seçin';
+
+  @override
+  String get difficultyEasy => 'Kolay';
+
+  @override
+  String get difficultyMedium => 'Orta';
+
+  @override
+  String get difficultyHard => 'Zor';
+
+  @override
+  String get difficultyExpert => 'Uzman';
 }
