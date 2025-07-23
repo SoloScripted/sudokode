@@ -48,10 +48,14 @@ extension DifficultyExtension on Difficulty {
   String localizedName(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     switch (this) {
-      case Difficulty.easy: return l10n.difficultyEasy;
-      case Difficulty.medium: return l10n.difficultyMedium;
-      case Difficulty.hard: return l10n.difficultyHard;
-      case Difficulty.expert: return l10n.difficultyExpert;
+      case Difficulty.easy:
+        return l10n.difficultyEasy;
+      case Difficulty.medium:
+        return l10n.difficultyMedium;
+      case Difficulty.hard:
+        return l10n.difficultyHard;
+      case Difficulty.expert:
+        return l10n.difficultyExpert;
     }
   }
 

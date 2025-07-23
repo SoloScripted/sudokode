@@ -189,6 +189,7 @@ class _GameScreenState extends State<GameScreen> {
       },
     );
   }
+
   List<Widget> _buildDifficultyButtons(BuildContext context) {
     return Difficulty.values.map((difficulty) {
       return Padding(
@@ -210,7 +211,7 @@ class _GameScreenState extends State<GameScreen> {
             onPressed: () => Navigator.of(context).pop(difficulty),
           ),
         ),
-              );
+      );
     }).toList();
   }
 
@@ -231,7 +232,8 @@ class _GameScreenState extends State<GameScreen> {
 
   Future<void> _showDifficultyDialog() async {
     // This is called from the "New Game" button.
-    final Difficulty? selectedDifficulty = await _showDifficultySelectionDialog();
+    final Difficulty? selectedDifficulty =
+        await _showDifficultySelectionDialog();
 
     if (selectedDifficulty != null && mounted) {
       setState(() {
