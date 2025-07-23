@@ -28,7 +28,7 @@ class NumberPad extends StatelessWidget {
           crossAxisCount: 11,
           crossAxisSpacing: 8,
           mainAxisSpacing: 8,
-          childAspectRatio: 1.2,
+          childAspectRatio: 0.75,
         ),
         itemCount: 11,
         itemBuilder: (context, index) {

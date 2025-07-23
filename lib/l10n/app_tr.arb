@@ -15,5 +15,6 @@
     "resetDialogContent": "Tahtayı temizleyip yeniden başlamak istediğinizden emin misiniz?",
     "resetDialogNo": "Hayır",
     "resetDialogTitle": "Tahtayı Sıfırla?",
-    "resetDialogYes": "Evet"
+    "resetDialogYes": "Evet",
+    "solvedDialogTimeLabel": "Süre"
 }

@@ -15,5 +15,8 @@
     "resetDialogContent": "Sind Sie sicher, dass Sie das Spielfeld leeren und von vorne beginnen möchten?",
     "resetDialogNo": "Nein",
     "resetDialogTitle": "Spielfeld zurücksetzen?",
-    "resetDialogYes": "Ja"
+    "resetDialogYes": "Ja",
+    "solvedDialogTimeLabel": "Zeit",
+    "newShort": "Neu",
+    "resetShort": "Reset"
 }

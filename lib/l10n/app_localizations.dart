@@ -199,6 +199,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Yes'**
   String get resetDialogYes;
+
+  /// No description provided for @solvedDialogTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get solvedDialogTimeLabel;
+
+  /// No description provided for @newShort.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get newShort;
+
+  /// No description provided for @resetShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetShort;
 }
 
 class _AppLocalizationsDelegate

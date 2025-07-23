@@ -58,4 +58,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get resetDialogYes => 'Ja';
+
+  @override
+  String get solvedDialogTimeLabel => 'Zeit';
+
+  @override
+  String get newShort => 'Neu';
+
+  @override
+  String get resetShort => 'Reset';
 }

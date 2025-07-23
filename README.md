@@ -9,6 +9,7 @@ An AI-powered Sudoku game built with Flutter and Dart. Challenge yourself with g
 -   **Conflict Highlighting**: Automatically highlights numbers that conflict in a row, column, or 3x3 box.
 -   **Interactive Number Pad**: Shows how many of each number are left to be placed.
 -   **Hint System**: Get up to 5 hints per game to help you when you're stuck.
+-   **Game Timer**: Tracks completion time.
 -   **Game Controls**: Easily start a new game or reset the current board.
 -   **Localization**: Supports multiple languages.
 
@@ -48,8 +49,6 @@ Here are some of the most common commands. For a full list, run `make help`.
 | `make help`    | Displays a list of all available commands.   |
 
 ## Future Enhancements
-
--   Game timer to track completion time.
 -   Difficulty levels (Easy, Medium, Hard, Expert).
 -   Save and load game state.
 -   Enhanced animations and sound effects.
