@@ -127,7 +127,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _onHintTap() {
-        if (_isPaused) {
+    if (_isPaused) {
       return;
     }
     final hintCell = _sudokuBoard.useHint();

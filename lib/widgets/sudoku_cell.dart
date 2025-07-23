@@ -10,8 +10,7 @@ class SudokuCell extends StatelessWidget {
   final bool isConflict;
   final VoidCallback? onTap;
   final Color cellBackgroundColor;
-    final bool isPaused;
-
+  final bool isPaused;
 
   const SudokuCell({
     super.key,

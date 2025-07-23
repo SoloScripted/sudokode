@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:sudokode/models/sudoku_board.dart';
 import 'package:sudokode/widgets/sudoku_cell.dart';
@@ -11,8 +10,7 @@ class SudokuGrid extends StatelessWidget {
   final int? selectedRow;
   final int? selectedCol;
   final void Function(int, int) onCellTap;
-    final bool isPaused;
-
+  final bool isPaused;
 
   const SudokuGrid({
     super.key,
@@ -20,8 +18,7 @@ class SudokuGrid extends StatelessWidget {
     required this.selectedRow,
     required this.selectedCol,
     required this.onCellTap,
-        required this.isPaused,
-
+    required this.isPaused,
   });
 
   @override
