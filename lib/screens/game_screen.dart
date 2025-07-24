@@ -155,10 +155,6 @@ class _GameScreenState extends State<GameScreen> {
     _startTimer();
   }
 
-  void _newGame() {
-    setState(_initializeNewGame);
-  }
-
   Future<void> _selectDifficultyAndStartGame({bool isCancellable = true}) async {
     final selectedDifficulty = await _showDifficultySelectionDialog(
       isDismissible: isCancellable,
