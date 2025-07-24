@@ -39,14 +39,19 @@ class SudokuBoard {
   }
 
   bool isSolved() {
+    // A board is solved if it's full and there are no conflicts.
     for (int r = 0; r < 9; r++) {
       for (int c = 0; c < 9; c++) {
-        if (_board[r][c] == 0 || _board[r][c] != _solutionBoard[r][c]) {
+        if (_board[r][c] == 0) {
           return false;
         }
       }
     }
-    return true;
+
+    // The `validateBoard` method, called on every change, updates the
+    // `_conflicts` grid. We just need to check if it's empty of conflicts.
+    validateBoard();
+    return !_conflicts.any((row) => row.any((isConflict) => isConflict));
   }
 
   void setValue(int row, int col, int value) {

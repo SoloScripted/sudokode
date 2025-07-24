@@ -80,7 +80,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "8748efbd4de0d7ab729ced9205ed42d24c3b5671"
+      resolved-ref: "7098dcc5a8b5764dfec2ce29d8cc375318bce701"
       url: "https://github.com/SoloScripted/flutter-shared-components.git"
     source: git
     version: "0.0.1"

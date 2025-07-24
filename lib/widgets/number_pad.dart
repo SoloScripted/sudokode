@@ -33,11 +33,13 @@ class NumberPad extends StatelessWidget {
         itemCount: 11,
         itemBuilder: (context, index) {
           if (index == 0) {
+            // Hint button
             return _buildHintButton(context);
-          } else if (index >= 1 && index <= 9) {
-            return _buildNumberButton(context, index);
+          } else if (index == 10) {
+            // Erase button
+            return _buildEraseButton(context);
           }
-          return _buildEraseButton(context);
+          return _buildNumberButton(context, index); // Number buttons
         },
       ),
     );
@@ -61,13 +63,12 @@ class NumberPad extends StatelessWidget {
   Widget _buildNumberButton(BuildContext context, int number) {
     final colorScheme = Theme.of(context).colorScheme;
     final count = getOccurrences(number);
-    final remaining = 9 - count;
-    final isCompleted = remaining <= 0;
+    final isCompleted = count >= 9;
 
     return BadgedActionButton(
       onPressed: () => onNumberTap(number),
       isVisible: !isCompleted,
-      badgeText: remaining.toString(),
+      badgeText: (9 - count).toString(),
       badgeColor: Colors.green.shade700,
       child: FittedBox(
         child: Text(
