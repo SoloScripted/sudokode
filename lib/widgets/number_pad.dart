@@ -32,9 +32,11 @@ class NumberPad extends StatelessWidget {
         ),
         itemCount: 11,
         itemBuilder: (context, index) {
-          if (index == 0) { // Hint button
+          if (index == 0) {
+            // Hint button
             return _buildHintButton(context);
-          } else if (index == 10) { // Erase button
+          } else if (index == 10) {
+            // Erase button
             return _buildEraseButton(context);
           }
           return _buildNumberButton(context, index); // Number buttons

@@ -54,7 +54,8 @@ class SudokuCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final bgColor = isConflict ? colorScheme.errorContainer : cellBackgroundColor;
+    final bgColor =
+        isConflict ? colorScheme.errorContainer : cellBackgroundColor;
     final borderColor = isSelected ? _initialValueColor : Colors.transparent;
 
     return MouseRegion(

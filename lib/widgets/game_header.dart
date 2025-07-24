@@ -65,9 +65,11 @@ class GameHeader extends StatelessWidget {
   Widget _buildActionButtons(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
-    final timerColor =
-        isPaused ? colorScheme.secondary : colorScheme.onSurface.withOpacity(0.85);
-    final timerIcon = isPaused ? Icons.pause_circle_outline : Icons.timer_outlined;
+    final timerColor = isPaused
+        ? colorScheme.secondary
+        : colorScheme.onSurface.withOpacity(0.85);
+    final timerIcon =
+        isPaused ? Icons.pause_circle_outline : Icons.timer_outlined;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,

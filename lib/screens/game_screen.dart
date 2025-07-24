@@ -155,7 +155,8 @@ class _GameScreenState extends State<GameScreen> {
     _startTimer();
   }
 
-  Future<void> _selectDifficultyAndStartGame({bool isCancellable = true}) async {
+  Future<void> _selectDifficultyAndStartGame(
+      {bool isCancellable = true}) async {
     final selectedDifficulty = await _showDifficultySelectionDialog(
       isDismissible: isCancellable,
     );
@@ -191,8 +192,7 @@ class _GameScreenState extends State<GameScreen> {
             ],
           ),
           content: SizedBox(
-            width:
-                min(MediaQuery.of(context).size.shortestSide * 0.7, 300.0),
+            width: min(MediaQuery.of(context).size.shortestSide * 0.7, 300.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: _buildDifficultyButtons(context),
