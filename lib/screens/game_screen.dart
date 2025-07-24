@@ -1,13 +1,14 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:sudokode/models/sudoku_board.dart';
+
+import 'package:flutter/material.dart';
+import 'package:sudokode/l10n/app_localizations.dart';
 import 'package:sudokode/models/difficulty.dart';
-import 'package:sudokode/widgets/sudoku_grid.dart';
+import 'package:sudokode/models/sudoku_board.dart';
 import 'package:sudokode/widgets/game_header.dart';
 import 'package:sudokode/widgets/number_pad.dart';
 import 'package:sudokode/widgets/solved_dialog.dart';
-import 'package:sudokode/l10n/app_localizations.dart';
+import 'package:sudokode/widgets/sudoku_grid.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -37,11 +38,9 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize with an empty board. The difficulty selection dialog will
-    // be shown after the first frame, which will then generate the puzzle.
     _sudokuBoard = SudokuBoard();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _selectInitialDifficulty();
+      _selectDifficultyAndStartGame(isCancellable: false);
     });
   }
 
@@ -54,7 +53,6 @@ class _GameScreenState extends State<GameScreen> {
 
   void _startTimer() {
     _stopwatch.start();
-    // Update the UI every second.
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_stopwatch.isRunning) {
         setState(() {
@@ -161,11 +159,29 @@ class _GameScreenState extends State<GameScreen> {
     setState(_initializeNewGame);
   }
 
+  Future<void> _selectDifficultyAndStartGame({bool isCancellable = true}) async {
+    final selectedDifficulty = await _showDifficultySelectionDialog(
+      isDismissible: isCancellable,
+    );
+
+    if (!mounted) return;
+
+    if (selectedDifficulty != null) {
+      setState(() {
+        _currentDifficulty = selectedDifficulty;
+        _initializeNewGame();
+      });
+    } else if (!isCancellable) {
+      setState(() {
+        _currentDifficulty = Difficulty.easy;
+        _initializeNewGame();
+      });
+    }
+  }
+
   Future<Difficulty?> _showDifficultySelectionDialog(
       {bool isDismissible = true}) async {
     final l10n = AppLocalizations.of(context)!;
-    final double dialogWidth =
-        min(MediaQuery.of(context).size.shortestSide * 0.7, 300.0);
     return await showDialog<Difficulty>(
       context: context,
       barrierDismissible: isDismissible,
@@ -179,7 +195,8 @@ class _GameScreenState extends State<GameScreen> {
             ],
           ),
           content: SizedBox(
-            width: dialogWidth,
+            width:
+                min(MediaQuery.of(context).size.shortestSide * 0.7, 300.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: _buildDifficultyButtons(context),
@@ -213,34 +230,6 @@ class _GameScreenState extends State<GameScreen> {
         ),
       );
     }).toList();
-  }
-
-  Future<void> _selectInitialDifficulty() async {
-    // This is called once when the app starts. It's not dismissible.
-    final Difficulty? selectedDifficulty =
-        await _showDifficultySelectionDialog(isDismissible: false);
-
-    // selectedDifficulty should not be null, but as a fallback,
-    // default to easy.
-    if (mounted) {
-      setState(() {
-        _currentDifficulty = selectedDifficulty ?? Difficulty.easy;
-        _initializeNewGame();
-      });
-    }
-  }
-
-  Future<void> _showDifficultyDialog() async {
-    // This is called from the "New Game" button.
-    final Difficulty? selectedDifficulty =
-        await _showDifficultySelectionDialog();
-
-    if (selectedDifficulty != null && mounted) {
-      setState(() {
-        _currentDifficulty = selectedDifficulty;
-        _initializeNewGame();
-      });
-    }
   }
 
   Future<void> _handleConfirmationAction({
@@ -288,10 +277,10 @@ class _GameScreenState extends State<GameScreen> {
         context: dialogContext,
         title: l10n.newGameDialogTitle,
         content: l10n.newGameDialogContent,
-        onConfirm: _showDifficultyDialog,
+        onConfirm: () => _selectDifficultyAndStartGame(isCancellable: true),
       );
     } else {
-      _showDifficultyDialog();
+      _selectDifficultyAndStartGame(isCancellable: true);
     }
   }
 
@@ -341,7 +330,7 @@ class _GameScreenState extends State<GameScreen> {
           elapsedTime: _elapsedTime,
           onPlayAgain: () {
             Navigator.of(context).pop();
-            _newGame();
+            _selectDifficultyAndStartGame();
           },
         );
       },

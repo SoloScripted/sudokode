@@ -1,8 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-const _initialValueColor = Color(0xFF1565C0);
-
 class SudokuCell extends StatelessWidget {
   final int value;
   final bool isInitial;
@@ -11,6 +9,9 @@ class SudokuCell extends StatelessWidget {
   final VoidCallback? onTap;
   final Color cellBackgroundColor;
   final bool isPaused;
+
+  static const _initialValueColor = Color(0xFF1565C0);
+  static const _animationDuration = Duration(milliseconds: 150);
 
   const SudokuCell({
     super.key,
@@ -23,24 +24,49 @@ class SudokuCell extends StatelessWidget {
     required this.isPaused,
   });
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildContent(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+
+    final textStyle = theme.textTheme.titleLarge?.copyWith(
+      fontWeight: FontWeight.bold,
+      fontSize: 20,
+      color: isInitial ? _initialValueColor : colorScheme.onSurface,
+    );
+
+    final imageFilter = ImageFilter.blur(
+      sigmaX: isPaused ? 4.0 : 0.0,
+      sigmaY: isPaused ? 4.0 : 0.0,
+      tileMode: TileMode.decal,
+    );
+
+    return ImageFiltered(
+      imageFilter: imageFilter,
+      child: Center(
+        child: Text(
+          value == 0 ? '' : value.toString(),
+          style: textStyle,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final bgColor = isConflict ? colorScheme.errorContainer : cellBackgroundColor;
+    final borderColor = isSelected ? _initialValueColor : Colors.transparent;
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
+          duration: _animationDuration,
           decoration: BoxDecoration(
-            color:
-                isConflict ? colorScheme.errorContainer : cellBackgroundColor,
+            color: bgColor,
             borderRadius: BorderRadius.circular(4.0),
-            border: Border.all(
-                width: 2.0,
-                color: isSelected ? _initialValueColor : Colors.transparent),
+            border: Border.all(width: 2.0, color: borderColor),
             boxShadow: [
               BoxShadow(
                 color: colorScheme.shadow.withAlpha(38),
@@ -49,23 +75,7 @@ class SudokuCell extends StatelessWidget {
               )
             ],
           ),
-          child: ImageFiltered(
-            imageFilter: ImageFilter.blur(
-              sigmaX: isPaused ? 4.0 : 0.0,
-              sigmaY: isPaused ? 4.0 : 0.0,
-              tileMode: TileMode.decal,
-            ),
-            child: Center(
-              child: Text(
-                value == 0 ? '' : value.toString(),
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: isInitial ? _initialValueColor : colorScheme.onSurface,
-                ),
-              ),
-            ),
-          ),
+          child: _buildContent(context),
         ),
       ),
     );

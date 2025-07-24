@@ -4,46 +4,38 @@ import 'package:flutter/widgets.dart' show BuildContext, IconData;
 import 'package:sudokode/l10n/app_localizations.dart';
 
 enum Difficulty {
-  easy,
-  medium,
-  hard,
-  expert,
-}
-
-@immutable
-class DifficultySettings {
-  final int emptyCells;
-  final int maxHints;
-  final IconData icon;
-
-  const DifficultySettings(
-      {required this.emptyCells, required this.maxHints, required this.icon});
-}
-
-extension DifficultyExtension on Difficulty {
-  // Using a map for settings for easier management and localization.
-  static final Map<Difficulty, DifficultySettings> _settings = {
-    Difficulty.easy: const DifficultySettings(
+  easy(
+    DifficultySettings(
       emptyCells: 40,
-      maxHints: 5,
+      maxHints: 50,
       icon: Icons.wb_sunny_outlined,
     ),
-    Difficulty.medium: const DifficultySettings(
+  ),
+  medium(
+    DifficultySettings(
       emptyCells: 50,
       maxHints: 3,
       icon: Icons.thermostat_outlined,
     ),
-    Difficulty.hard: const DifficultySettings(
+  ),
+  hard(
+    DifficultySettings(
       emptyCells: 55,
       maxHints: 1,
       icon: Icons.whatshot_outlined,
     ),
-    Difficulty.expert: const DifficultySettings(
+  ),
+  expert(
+    DifficultySettings(
       emptyCells: 60,
       maxHints: 0,
       icon: Icons.local_fire_department_outlined,
     ),
-  };
+  );
+
+  const Difficulty(this.settings);
+
+  final DifficultySettings settings;
 
   String localizedName(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -59,7 +51,17 @@ extension DifficultyExtension on Difficulty {
     }
   }
 
-  IconData get icon => _settings[this]!.icon;
-  int get emptyCells => _settings[this]!.emptyCells;
-  int get maxHints => _settings[this]!.maxHints;
+  IconData get icon => settings.icon;
+  int get emptyCells => settings.emptyCells;
+  int get maxHints => settings.maxHints;
+}
+
+@immutable
+class DifficultySettings {
+  final int emptyCells;
+  final int maxHints;
+  final IconData icon;
+
+  const DifficultySettings(
+      {required this.emptyCells, required this.maxHints, required this.icon});
 }
