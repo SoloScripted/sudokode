@@ -23,7 +23,7 @@ class GameHeader extends StatelessWidget {
     required this.isPaused,
   });
 
-    void _showSettingsDialog(BuildContext context) {
+  void _showSettingsDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -89,11 +89,11 @@ class GameHeader extends StatelessWidget {
         : colorScheme.onSurface.withOpacity(0.85);
     final timerIcon =
         isPaused ? Icons.pause_circle_outline : Icons.timer_outlined;
-    final isSmall =  MediaQuery.of(context).size.width < 700;
+    final isSmall = MediaQuery.of(context).size.width < 700;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (!isSmall) 
+        if (!isSmall)
           AnimatedOpacity(
             opacity: isPaused ? 0.0 : 1.0,
             duration: const Duration(milliseconds: 300),
@@ -128,7 +128,7 @@ class GameHeader extends StatelessWidget {
           fontFamily: 'monospace',
         ),
         const SizedBox(width: 8),
-        if (isSmall) 
+        if (isSmall)
           _buildActionButton(
             onPressed: () => _showSettingsDialog(context),
             icon: Icons.settings_outlined,
