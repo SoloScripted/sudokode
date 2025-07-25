@@ -75,8 +75,8 @@ class NumberPad extends StatelessWidget {
         child: Text(
           number.toString(),
           style: TextStyle(
-            fontSize: isSmallScreen ? 16:24,
-            fontWeight: isSmallScreen ? FontWeight.normal:FontWeight.bold,
+            fontSize: isSmallScreen ? 16 : 24,
+            fontWeight: isSmallScreen ? FontWeight.normal : FontWeight.bold,
             color: colorScheme.onSurface,
           ),
         ),

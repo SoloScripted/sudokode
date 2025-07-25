@@ -41,7 +41,8 @@ class GameStats {
     await prefs.setInt(_totalGamesKey, totalGames);
     await prefs.setInt(_completedGamesKey, completedGames);
     await prefs.setInt(_totalDurationMillisKey, _totalDurationMillis);
-    await prefs.setInt(_fastestDurationMillisKey, fastestDuration.inMilliseconds);
+    await prefs.setInt(
+        _fastestDurationMillisKey, fastestDuration.inMilliseconds);
   }
 
   Future<void> recordGameStarted() async {

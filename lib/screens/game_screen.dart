@@ -367,6 +367,7 @@ class _GameScreenState extends State<GameScreen> {
       _togglePause();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final double screenShortestSide = MediaQuery.of(context).size.shortestSide;

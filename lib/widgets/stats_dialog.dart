@@ -55,7 +55,8 @@ class _StatsDialogState extends State<StatsDialog> {
       actions: [
         TextButton(onPressed: _resetStats, child: Text(l10n.reset)),
         TextButton(
-            onPressed: () => Navigator.of(context).pop(), child: Text(l10n.close)),
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(l10n.close)),
       ],
     );
   }
