@@ -8,6 +8,7 @@ class GameHeader extends StatelessWidget {
   final VoidCallback onResetTap;
   final VoidCallback onNewGameTap;
   final VoidCallback onTimerTap;
+  final VoidCallback onStatsTap;
   final bool isPaused;
 
   const GameHeader({
@@ -17,6 +18,7 @@ class GameHeader extends StatelessWidget {
     required this.onResetTap,
     required this.onNewGameTap,
     required this.onTimerTap,
+    required this.onStatsTap,
     required this.isPaused,
   });
 
@@ -106,6 +108,13 @@ class GameHeader extends StatelessWidget {
           text: elapsedTime,
           color: timerColor,
           fontFamily: 'monospace',
+        ),
+        const SizedBox(width: 8),
+        _buildActionButton(
+          onPressed: onStatsTap,
+          icon: Icons.leaderboard_outlined,
+          text: l10n.stats,
+          color: colorScheme.onSurface,
         ),
       ],
     );

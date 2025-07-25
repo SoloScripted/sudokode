@@ -23,5 +23,12 @@
     "difficultyEasy": "Einfach",
     "difficultyMedium": "Mittel",
     "difficultyHard": "Schwer",
-    "difficultyExpert": "Experte"
+    "difficultyExpert": "Experte",
+    "stats": "Statistiken",
+    "statsDialogTitle": "Spielstatistiken",
+    "statsTotalGames": "Spiele gesamt",
+    "statsCompletedGames": "Abgeschlossene Spiele",
+    "statsAverageDuration": "Ø Dauer",
+    "statsFastestDuration": "Schnellste Zeit",
+    "close": "Schließen"
 }

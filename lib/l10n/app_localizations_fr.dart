@@ -25,7 +25,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get homeScreenSubtitle =>
-      'L\'expérience Sudoku où l\'esprit, les nombres et l\'IA se rencontrent.';
+      'L\'expérience Sudoku où l\'esprit, les chiffres et l\'IA se rencontrent.';
 
   @override
   String get newGame => 'Nouveau Jeu';
@@ -35,7 +35,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Êtes-vous sûr de vouloir commencer une nouvelle partie ? Votre progression actuelle sera perdue.';
 
   @override
-  String get newGameDialogTitle => 'Commencer une nouvelle partie ?';
+  String get newGameDialogTitle => 'Commencer une Nouvelle Partie ?';
 
   @override
   String get playAgain => 'Rejouer';
@@ -48,13 +48,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get resetDialogContent =>
-      'Êtes-vous sûr de vouloir effacer la grille et recommencer ?';
+      'Êtes-vous sûr de vouloir effacer le tableau et recommencer ?';
 
   @override
   String get resetDialogNo => 'Non';
 
   @override
-  String get resetDialogTitle => 'Réinitialiser la grille ?';
+  String get resetDialogTitle => 'Réinitialiser le Tableau ?';
 
   @override
   String get resetDialogYes => 'Oui';
@@ -69,7 +69,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get resetShort => 'Réinit.';
 
   @override
-  String get selectDifficulty => 'Sélectionner la difficulté';
+  String get selectDifficulty => 'Choisir la Difficulté';
 
   @override
   String get difficultyEasy => 'Facile';
@@ -82,4 +82,25 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get difficultyExpert => 'Expert';
+
+  @override
+  String get stats => 'Statistiques';
+
+  @override
+  String get statsDialogTitle => 'Statistiques du Jeu';
+
+  @override
+  String get statsTotalGames => 'Parties Totales';
+
+  @override
+  String get statsCompletedGames => 'Parties Terminées';
+
+  @override
+  String get statsAverageDuration => 'Durée Moyenne';
+
+  @override
+  String get statsFastestDuration => 'Durée la Plus Rapide';
+
+  @override
+  String get close => 'Fermer';
 }

@@ -82,4 +82,25 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get difficultyExpert => 'Experte';
+
+  @override
+  String get stats => 'Statistiken';
+
+  @override
+  String get statsDialogTitle => 'Spielstatistiken';
+
+  @override
+  String get statsTotalGames => 'Spiele gesamt';
+
+  @override
+  String get statsCompletedGames => 'Abgeschlossene Spiele';
+
+  @override
+  String get statsAverageDuration => 'Ø Dauer';
+
+  @override
+  String get statsFastestDuration => 'Schnellste Zeit';
+
+  @override
+  String get close => 'Schließen';
 }

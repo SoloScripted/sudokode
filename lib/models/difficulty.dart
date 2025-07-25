@@ -7,7 +7,7 @@ enum Difficulty {
   easy(
     DifficultySettings(
       emptyCells: 40,
-      maxHints: 50,
+      maxHints: 5,
       icon: Icons.wb_sunny_outlined,
     ),
   ),

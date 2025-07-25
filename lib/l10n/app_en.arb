@@ -23,5 +23,12 @@
     "difficultyEasy": "Easy",
     "difficultyMedium": "Medium",
     "difficultyHard": "Hard",
-    "difficultyExpert": "Expert"
+    "difficultyExpert": "Expert",
+    "stats": "Stats",
+    "statsDialogTitle": "Game Statistics",
+    "statsTotalGames": "Total Games",
+    "statsCompletedGames": "Completed Games",
+    "statsAverageDuration": "Average Duration",
+    "statsFastestDuration": "Fastest Duration",
+    "close": "Close"
 }

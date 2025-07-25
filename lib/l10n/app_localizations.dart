@@ -247,6 +247,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expert'**
   String get difficultyExpert;
+
+  /// No description provided for @stats.
+  ///
+  /// In en, this message translates to:
+  /// **'Stats'**
+  String get stats;
+
+  /// No description provided for @statsDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Game Statistics'**
+  String get statsDialogTitle;
+
+  /// No description provided for @statsTotalGames.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Games'**
+  String get statsTotalGames;
+
+  /// No description provided for @statsCompletedGames.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed Games'**
+  String get statsCompletedGames;
+
+  /// No description provided for @statsAverageDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Average Duration'**
+  String get statsAverageDuration;
+
+  /// No description provided for @statsFastestDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Fastest Duration'**
+  String get statsFastestDuration;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
 }
 
 class _AppLocalizationsDelegate
