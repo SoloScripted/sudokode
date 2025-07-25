@@ -7,7 +7,7 @@
     "gameScreenTitlePart2": "Kode",
     "homeScreenSubtitle": "La experiencia de Sudoku donde la mente, los números y la IA se encuentran.",
     "newGame": "Nuevo Juego",
-    "newGameDialogContent": "¿Estás seguro de que quieres empezar un nuevo juego? Tu progreso actual se perderá.",
+    "newGameDialogContent": "¿Estás seguro de que quieres empezar un juego nuevo? Tu progreso actual se perderá.",
     "newGameDialogTitle": "¿Empezar Nuevo Juego?",
     "playAgain": "Jugar de Nuevo",
     "puzzleSolved": "Has resuelto el puzle.",
@@ -30,5 +30,6 @@
     "statsCompletedGames": "Partidas Completadas",
     "statsAverageDuration": "Duración Promedio",
     "statsFastestDuration": "Duración Más Rápida",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "settings": "Ajustes"
 }

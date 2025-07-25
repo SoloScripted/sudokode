@@ -30,5 +30,6 @@
     "statsCompletedGames": "Completed Games",
     "statsAverageDuration": "Average Duration",
     "statsFastestDuration": "Fastest Duration",
-    "close": "Close"
+    "close": "Close",
+    "settings": "Settings"
 }

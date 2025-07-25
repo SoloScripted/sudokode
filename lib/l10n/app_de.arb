@@ -30,5 +30,6 @@
     "statsCompletedGames": "Abgeschlossene Spiele",
     "statsAverageDuration": "Ø Dauer",
     "statsFastestDuration": "Schnellste Zeit",
-    "close": "Schließen"
+    "close": "Schließen",
+    "settings": "Einstellungen"
 }
