@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:sudokode/l10n/app_localizations.dart';
 import 'package:sudokode/models/difficulty.dart';
 import 'package:sudokode/models/sudoku_board.dart';
+import 'package:sudokode/services/game_stats.dart';
 import 'package:sudokode/widgets/game_header.dart';
 import 'package:sudokode/widgets/number_pad.dart';
 import 'package:sudokode/widgets/solved_dialog.dart';
+import 'package:sudokode/widgets/stats_dialog.dart';
 import 'package:sudokode/widgets/sudoku_grid.dart';
 
 class GameScreen extends StatefulWidget {
@@ -98,19 +100,19 @@ class _GameScreenState extends State<GameScreen> {
     });
   }
 
-  void _onNumberTap(int number) {
+  void _onNumberTap(int number) async {
     if (_isPaused) {
       return;
     }
     if (_isCellSelected) {
       if (!_sudokuBoard.isInitialValue(_selectedRow!, _selectedCol!)) {
-        setState(() {
-          _sudokuBoard.setValue(_selectedRow!, _selectedCol!, number);
-          if (_sudokuBoard.isSolved()) {
-            _stopTimer();
-            _showSolvedDialog();
-          }
-        });
+        setState(
+            () => _sudokuBoard.setValue(_selectedRow!, _selectedCol!, number));
+        if (_sudokuBoard.isSolved()) {
+          _stopTimer();
+          await GameStats().recordGameCompleted(_stopwatch.elapsed);
+          _showSolvedDialog();
+        }
       }
     }
   }
@@ -128,7 +130,7 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  void _onHintTap() {
+  void _onHintTap() async {
     if (_isPaused) {
       return;
     }
@@ -137,21 +139,23 @@ class _GameScreenState extends State<GameScreen> {
       setState(() {
         _selectedRow = hintCell.$1;
         _selectedCol = hintCell.$2;
-        if (_sudokuBoard.isSolved()) {
-          _stopTimer();
-          _showSolvedDialog();
-        }
       });
+      if (_sudokuBoard.isSolved()) {
+        _stopTimer();
+        await GameStats().recordGameCompleted(_stopwatch.elapsed);
+        _showSolvedDialog();
+      }
     }
   }
 
-  void _initializeNewGame() {
+  Future<void> _initializeNewGame() async {
     _sudokuBoard = SudokuBoard();
     _sudokuBoard.generatePuzzle(_currentDifficulty);
     _selectedRow = null;
     _selectedCol = null;
     _isPaused = false;
     _resetTimer();
+    await GameStats().recordGameStarted();
     _startTimer();
   }
 
@@ -163,16 +167,17 @@ class _GameScreenState extends State<GameScreen> {
 
     if (!mounted) return;
 
+    Difficulty? difficultyToStart;
     if (selectedDifficulty != null) {
-      setState(() {
-        _currentDifficulty = selectedDifficulty;
-        _initializeNewGame();
-      });
+      difficultyToStart = selectedDifficulty;
     } else if (!isCancellable) {
-      setState(() {
-        _currentDifficulty = Difficulty.easy;
-        _initializeNewGame();
-      });
+      difficultyToStart = Difficulty.easy;
+    }
+
+    if (difficultyToStart != null) {
+      _currentDifficulty = difficultyToStart;
+      await _initializeNewGame();
+      if (mounted) setState(() {});
     }
   }
 
@@ -310,6 +315,7 @@ class _GameScreenState extends State<GameScreen> {
 
   Future<void> _showSolvedDialog() async {
     await Future.delayed(const Duration(milliseconds: 100));
+
     if (!mounted) return;
 
     await showGeneralDialog(
@@ -342,6 +348,25 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
+  Future<void> _showStatsDialog() async {
+    // The timer should be paused when viewing stats.
+    final bool wasPaused = _isPaused;
+    if (!wasPaused) {
+      _togglePause();
+    }
+
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return const StatsDialog();
+      },
+    );
+
+    // Resume timer if it was running before.
+    if (!wasPaused) {
+      _togglePause();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final double screenShortestSide = MediaQuery.of(context).size.shortestSide;
@@ -367,6 +392,7 @@ class _GameScreenState extends State<GameScreen> {
                         onResetTap: () => _onResetTap(context),
                         onNewGameTap: () => _onNewGameTap(context),
                         onTimerTap: _togglePause,
+                        onStatsTap: _showStatsDialog,
                         isPaused: _isPaused,
                       ),
                     ),

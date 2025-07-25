@@ -46,15 +46,9 @@ setup: ## Sets up the project: installs FVM (if needed) and all dependencies.
 	# Check if fvm command exists in PATH
 	@if ! command -v fvm >/dev/null 2>&1; then \
 		echo "FVM not found. Attempting to install FVM..."; \
-		# Check if curl is available for downloading the installation script
 		if command -v curl >/dev/null 2>&1; then \
 			echo "Downloading and running FVM installation script..."; \
-			# Download and execute the FVM install script. The `SHELL` variable
-			# set above will determine which shell executes this `bash` command.
 			curl -fsSL $(FVM_INSTALL_URL) | bash; \
-			# Source the appropriate shell configuration file to update PATH
-			# for the *current* Makefile subshell, if the file exists.
-			# This is more precise than sourcing all three.
 			if [ "$(SHELL)" = "/bin/zsh" ] && [ -f "$$HOME/.zshrc" ]; then \
 				source "$$HOME/.zshrc"; \
 			elif [ "$(SHELL)" = "/bin/bash" ] && [ -f "$$HOME/.bashrc" ]; then \

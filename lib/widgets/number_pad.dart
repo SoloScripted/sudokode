@@ -64,6 +64,7 @@ class NumberPad extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final count = getOccurrences(number);
     final isCompleted = count >= 9;
+    final isSmallScreen = MediaQuery.of(context).size.width < 700;
 
     return BadgedActionButton(
       onPressed: () => onNumberTap(number),
@@ -74,8 +75,8 @@ class NumberPad extends StatelessWidget {
         child: Text(
           number.toString(),
           style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+            fontSize: isSmallScreen ? 16:24,
+            fontWeight: isSmallScreen ? FontWeight.normal:FontWeight.bold,
             color: colorScheme.onSurface,
           ),
         ),
