@@ -35,7 +35,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Yeni bir oyuna başlamak istediğinizden emin misiniz? Mevcut ilerlemeniz kaybolacak.';
 
   @override
-  String get newGameDialogTitle => 'Yeni Oyun Başlatılsın mı?';
+  String get newGameDialogTitle => 'Yeni Oyuna Başla?';
 
   @override
   String get playAgain => 'Tekrar Oyna';
@@ -54,7 +54,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get resetDialogNo => 'Hayır';
 
   @override
-  String get resetDialogTitle => 'Tahta Sıfırlansın mı?';
+  String get resetDialogTitle => 'Tahtayı Sıfırla?';
 
   @override
   String get resetDialogYes => 'Evet';
@@ -69,7 +69,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get resetShort => 'Sıfırla';
 
   @override
-  String get selectDifficulty => 'Zorluk Seçin';
+  String get selectDifficulty => 'Zorluk Seç';
 
   @override
   String get difficultyEasy => 'Kolay';
@@ -93,7 +93,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get statsTotalGames => 'Toplam Oyun';
 
   @override
-  String get statsCompletedGames => 'Tamamlanan Oyun';
+  String get statsCompletedGames => 'Tamamlanan Oyunlar';
 
   @override
   String get statsAverageDuration => 'Ortalama Süre';
@@ -103,4 +103,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get close => 'Kapat';
+
+  @override
+  String get settings => 'Ayarlar';
 }

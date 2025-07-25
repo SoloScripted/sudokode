@@ -28,7 +28,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'L\'expérience Sudoku où l\'esprit, les chiffres et l\'IA se rencontrent.';
 
   @override
-  String get newGame => 'Nouveau Jeu';
+  String get newGame => 'Nouvelle Partie';
 
   @override
   String get newGameDialogContent =>
@@ -48,13 +48,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get resetDialogContent =>
-      'Êtes-vous sûr de vouloir effacer le tableau et recommencer ?';
+      'Êtes-vous sûr de vouloir effacer le plateau et recommencer ?';
 
   @override
   String get resetDialogNo => 'Non';
 
   @override
-  String get resetDialogTitle => 'Réinitialiser le Tableau ?';
+  String get resetDialogTitle => 'Réinitialiser le Plateau ?';
 
   @override
   String get resetDialogYes => 'Oui';
@@ -69,7 +69,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get resetShort => 'Réinit.';
 
   @override
-  String get selectDifficulty => 'Choisir la Difficulté';
+  String get selectDifficulty => 'Sélectionner la Difficulté';
 
   @override
   String get difficultyEasy => 'Facile';
@@ -87,7 +87,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get stats => 'Statistiques';
 
   @override
-  String get statsDialogTitle => 'Statistiques du Jeu';
+  String get statsDialogTitle => 'Statistiques de Jeu';
 
   @override
   String get statsTotalGames => 'Parties Totales';
@@ -103,4 +103,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get close => 'Fermer';
+
+  @override
+  String get settings => 'Paramètres';
 }

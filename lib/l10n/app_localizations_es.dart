@@ -32,7 +32,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get newGameDialogContent =>
-      '¿Estás seguro de que quieres empezar un nuevo juego? Tu progreso actual se perderá.';
+      '¿Estás seguro de que quieres empezar un juego nuevo? Tu progreso actual se perderá.';
 
   @override
   String get newGameDialogTitle => '¿Empezar Nuevo Juego?';
@@ -103,4 +103,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get close => 'Cerrar';
+
+  @override
+  String get settings => 'Ajustes';
 }
