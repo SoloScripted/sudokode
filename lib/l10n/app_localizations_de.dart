@@ -105,5 +105,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get close => 'Schließen';
 
   @override
-  String get settings => 'Einstellungen';
+  String get settings => 'Menü';
+
+  @override
+  String get hint => 'Hinweis';
 }

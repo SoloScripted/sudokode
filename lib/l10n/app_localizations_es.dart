@@ -105,5 +105,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get close => 'Cerrar';
 
   @override
-  String get settings => 'Ajustes';
+  String get settings => 'Menú';
+
+  @override
+  String get hint => 'Pista';
 }

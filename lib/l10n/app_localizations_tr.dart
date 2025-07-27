@@ -105,5 +105,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get close => 'Kapat';
 
   @override
-  String get settings => 'Ayarlar';
+  String get settings => 'Menü';
+
+  @override
+  String get hint => 'İpucu';
 }

@@ -31,5 +31,6 @@
     "statsAverageDuration": "Ø Dauer",
     "statsFastestDuration": "Schnellste Zeit",
     "close": "Schließen",
-    "settings": "Einstellungen"
+    "settings": "Menü",
+    "hint": "Hinweis"
 }
