@@ -10,6 +10,7 @@ class GameHeader extends StatelessWidget {
   final VoidCallback onNewGameTap;
   final VoidCallback onTimerTap;
   final VoidCallback onStatsTap;
+  final VoidCallback onHintTap;
   final bool isPaused;
 
   const GameHeader({
@@ -20,6 +21,7 @@ class GameHeader extends StatelessWidget {
     required this.onNewGameTap,
     required this.onTimerTap,
     required this.onStatsTap,
+    required this.onHintTap,
     required this.isPaused,
   });
 
@@ -42,7 +44,6 @@ class GameHeader extends StatelessWidget {
     required String text,
     required Color color,
     String? fontFamily,
-    bool? dynamicalVisible,
   }) {
     final children = <Widget>[
       Icon(icon, color: color, size: 20),
@@ -59,7 +60,7 @@ class GameHeader extends StatelessWidget {
         ),
       ),
     ]);
-    final button = StyledActionButton(
+    return StyledActionButton(
       onPressed: onPressed,
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
       child: Column(
@@ -67,18 +68,6 @@ class GameHeader extends StatelessWidget {
         children: children,
       ),
     );
-
-    if (dynamicalVisible != null) {
-      return Visibility(
-        visible: isBoardModified,
-        maintainSize: true,
-        maintainAnimation: true,
-        maintainState: true,
-        child: button,
-      );
-    }
-
-    return button;
   }
 
   Widget _buildActionButtons(BuildContext context) {
@@ -89,37 +78,17 @@ class GameHeader extends StatelessWidget {
         : colorScheme.onSurface.withOpacity(0.85);
     final timerIcon =
         isPaused ? Icons.pause_circle_outline : Icons.timer_outlined;
-    final isSmall = MediaQuery.of(context).size.width < 700;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (!isSmall)
-          AnimatedOpacity(
-            opacity: isPaused ? 0.0 : 1.0,
-            duration: const Duration(milliseconds: 300),
-            child: IgnorePointer(
-              ignoring: isPaused,
-              child: Row(
-                children: [
-                  _buildActionButton(
-                    onPressed: onResetTap,
-                    icon: Icons.refresh_rounded,
-                    text: l10n.resetShort,
-                    color: colorScheme.onSurface,
-                    dynamicalVisible: true,
-                  ),
-                  const SizedBox(width: 8),
-                  _buildActionButton(
-                    onPressed: onNewGameTap,
-                    icon: Icons.autorenew_rounded,
-                    text: l10n.newShort,
-                    color: colorScheme.onSurface,
-                  ),
-                  const SizedBox(width: 8),
-                ],
-              ),
-            ),
-          ),
+        _buildActionButton(
+          onPressed: onHintTap,
+          icon: Icons.lightbulb_outline,
+          text: l10n.hint,
+          color: timerColor,
+          fontFamily: 'monospace',
+        ),
+        const SizedBox(width: 8),
         _buildActionButton(
           onPressed: onTimerTap,
           icon: timerIcon,
@@ -128,20 +97,12 @@ class GameHeader extends StatelessWidget {
           fontFamily: 'monospace',
         ),
         const SizedBox(width: 8),
-        if (isSmall)
-          _buildActionButton(
-            onPressed: () => _showSettingsDialog(context),
-            icon: Icons.settings_outlined,
-            color: colorScheme.onSurface,
-            text: l10n.settings,
-          ),
-        if (!isSmall)
-          _buildActionButton(
-            onPressed: onStatsTap,
-            icon: Icons.leaderboard_outlined,
-            text: l10n.stats,
-            color: colorScheme.onSurface,
-          ),
+        _buildActionButton(
+          onPressed: () => _showSettingsDialog(context),
+          icon: Icons.more_vert,
+          color: colorScheme.onSurface,
+          text: l10n.settings,
+        ),
       ],
     );
   }

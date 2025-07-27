@@ -251,7 +251,7 @@ abstract class AppLocalizations {
   /// No description provided for @stats.
   ///
   /// In en, this message translates to:
-  /// **'Stats'**
+  /// **'Statistics'**
   String get stats;
 
   /// No description provided for @statsDialogTitle.
@@ -293,8 +293,14 @@ abstract class AppLocalizations {
   /// No description provided for @settings.
   ///
   /// In en, this message translates to:
-  /// **'Settings'**
+  /// **'Menu'**
   String get settings;
+
+  /// No description provided for @hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hint'**
+  String get hint;
 }
 
 class _AppLocalizationsDelegate

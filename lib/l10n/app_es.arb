@@ -31,5 +31,6 @@
     "statsAverageDuration": "Duración Promedio",
     "statsFastestDuration": "Duración Más Rápida",
     "close": "Cerrar",
-    "settings": "Ajustes"
+    "settings": "Menú",
+    "hint": "Pista"
 }

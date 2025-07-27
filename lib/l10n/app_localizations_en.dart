@@ -84,7 +84,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get difficultyExpert => 'Expert';
 
   @override
-  String get stats => 'Stats';
+  String get stats => 'Statistics';
 
   @override
   String get statsDialogTitle => 'Game Statistics';
@@ -105,5 +105,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get close => 'Close';
 
   @override
-  String get settings => 'Settings';
+  String get settings => 'Menu';
+
+  @override
+  String get hint => 'Hint';
 }

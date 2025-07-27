@@ -35,7 +35,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Êtes-vous sûr de vouloir commencer une nouvelle partie ? Votre progression actuelle sera perdue.';
 
   @override
-  String get newGameDialogTitle => 'Commencer une Nouvelle Partie ?';
+  String get newGameDialogTitle => 'Nouvelle partie ?';
 
   @override
   String get playAgain => 'Rejouer';
@@ -48,13 +48,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get resetDialogContent =>
-      'Êtes-vous sûr de vouloir effacer le plateau et recommencer ?';
+      'Êtes-vous sûr de vouloir effacer le tableau et recommencer ?';
 
   @override
   String get resetDialogNo => 'Non';
 
   @override
-  String get resetDialogTitle => 'Réinitialiser le Plateau ?';
+  String get resetDialogTitle => 'Réinitialiser le tableau ?';
 
   @override
   String get resetDialogYes => 'Oui';
@@ -69,7 +69,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get resetShort => 'Réinit.';
 
   @override
-  String get selectDifficulty => 'Sélectionner la Difficulté';
+  String get selectDifficulty => 'Sélectionner la difficulté';
 
   @override
   String get difficultyEasy => 'Facile';
@@ -87,23 +87,26 @@ class AppLocalizationsFr extends AppLocalizations {
   String get stats => 'Statistiques';
 
   @override
-  String get statsDialogTitle => 'Statistiques de Jeu';
+  String get statsDialogTitle => 'Statistiques du jeu';
 
   @override
-  String get statsTotalGames => 'Parties Totales';
+  String get statsTotalGames => 'Parties totales';
 
   @override
-  String get statsCompletedGames => 'Parties Terminées';
+  String get statsCompletedGames => 'Parties terminées';
 
   @override
-  String get statsAverageDuration => 'Durée Moyenne';
+  String get statsAverageDuration => 'Durée moyenne';
 
   @override
-  String get statsFastestDuration => 'Durée la Plus Rapide';
+  String get statsFastestDuration => 'Durée la plus rapide';
 
   @override
   String get close => 'Fermer';
 
   @override
-  String get settings => 'Paramètres';
+  String get settings => 'Menu';
+
+  @override
+  String get hint => 'Indice';
 }

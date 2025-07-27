@@ -31,5 +31,6 @@
     "statsAverageDuration": "Ortalama Süre",
     "statsFastestDuration": "En Hızlı Süre",
     "close": "Kapat",
-    "settings": "Ayarlar"
+    "settings": "Menü",
+    "hint": "İpucu"
 }

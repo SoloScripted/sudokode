@@ -2,7 +2,7 @@ name: sudokode
 description: An AI-powered Sudoku game built with Flutter and Dart. Challenge yourself with generated puzzles and get a little help when you're stuck.
 publish_to: 'none'
 
-version: 1.0.0+9
+version: 1.0.0+10
 
 environment:
   sdk: '>=3.4.0 <4.0.0'

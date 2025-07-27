@@ -394,6 +394,7 @@ class _GameScreenState extends State<GameScreen> {
                         onNewGameTap: () => _onNewGameTap(context),
                         onTimerTap: _togglePause,
                         onStatsTap: _showStatsDialog,
+                        onHintTap: _onHintTap,
                         isPaused: _isPaused,
                       ),
                     ),
@@ -412,6 +413,7 @@ class _GameScreenState extends State<GameScreen> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 8),
                     AnimatedOpacity(
                       opacity: _isPaused ? 0.0 : 1.0,
                       duration: const Duration(milliseconds: 300),
@@ -419,14 +421,11 @@ class _GameScreenState extends State<GameScreen> {
                         ignoring: _isPaused,
                         child: Column(
                           children: [
-                            const SizedBox(height: 20),
                             SizedBox(
                               width: componentWidth,
                               child: NumberPad(
                                 onNumberTap: _onNumberTap,
                                 onEraseTap: _onEraseTap,
-                                onHintTap: _onHintTap,
-                                remainingHints: _sudokuBoard.remainingHints,
                                 getOccurrences: _sudokuBoard.countOccurrences,
                               ),
                             ),
