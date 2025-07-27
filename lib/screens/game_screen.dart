@@ -421,7 +421,6 @@ class _GameScreenState extends State<GameScreen> {
                         ignoring: _isPaused,
                         child: Column(
                           children: [
-                            
                             SizedBox(
                               width: componentWidth,
                               child: NumberPad(
