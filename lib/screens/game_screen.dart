@@ -138,7 +138,7 @@ class _GameScreenState extends State<GameScreen> {
 
     try {
       final hintCell = _sudokuBoard.useHint();
-      
+
       setState(() {
         _selectedRow = hintCell.$1;
         _selectedCol = hintCell.$2;
@@ -149,7 +149,6 @@ class _GameScreenState extends State<GameScreen> {
         if (!mounted) return;
         _showSolvedDialog();
       }
-      
     } on NoHintAvailableException catch (e) {
       if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
