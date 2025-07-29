@@ -32,5 +32,9 @@
     "statsFastestDuration": "En Hızlı Süre",
     "close": "Kapat",
     "settings": "Menü",
-    "hint": "İpucu"
+    "hint": "İpucu",
+    "noHintAvailableTitle": "İpucu Mevcut Değil",
+    "noMoreHintsMessage": "Bu seviyede daha fazla ipucuna izin verilmiyor.",
+    "boardIsCorrectMessage": "Tahta zaten doğru. Verilecek ipucu yok!",
+    "ok": "Tamam"
 }

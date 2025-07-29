@@ -109,4 +109,18 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get hint => 'Indice';
+
+  @override
+  String get noHintAvailableTitle => 'Aucun indice disponible';
+
+  @override
+  String get noMoreHintsMessage =>
+      'Plus aucun indice n\'est autorisé à ce niveau.';
+
+  @override
+  String get boardIsCorrectMessage =>
+      'Le tableau est déjà correct. Aucun indice à donner !';
+
+  @override
+  String get ok => 'OK';
 }

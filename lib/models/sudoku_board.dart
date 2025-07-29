@@ -2,6 +2,16 @@ import 'dart:math';
 
 import 'package:sudokode/models/difficulty.dart';
 
+enum NoHintReason {
+  noMoreHints,
+  boardIsCorrect,
+}
+
+class NoHintAvailableException implements Exception {
+  final NoHintReason reason;
+  NoHintAvailableException(this.reason);
+}
+
 class SudokuBoard {
   late List<List<int>> _board;
   late List<List<int>> _solutionBoard;
@@ -39,7 +49,6 @@ class SudokuBoard {
   }
 
   bool isSolved() {
-    // A board is solved if it's full and there are no conflicts.
     for (int r = 0; r < 9; r++) {
       for (int c = 0; c < 9; c++) {
         if (_board[r][c] == 0) {
@@ -48,8 +57,6 @@ class SudokuBoard {
       }
     }
 
-    // The `validateBoard` method, called on every change, updates the
-    // `_conflicts` grid. We just need to check if it's empty of conflicts.
     validateBoard();
     return !_conflicts.any((row) => row.any((isConflict) => isConflict));
   }
@@ -83,9 +90,9 @@ class SudokuBoard {
     validateBoard();
   }
 
-  (int, int)? useHint() {
+  (int, int) useHint() {
     if (!canUseHint) {
-      return null;
+      throw NoHintAvailableException(NoHintReason.noMoreHints);
     }
 
     final availableCells = <(int, int)>[];
@@ -98,7 +105,7 @@ class SudokuBoard {
     }
 
     if (availableCells.isEmpty) {
-      return null;
+      throw NoHintAvailableException(NoHintReason.boardIsCorrect);
     }
 
     availableCells.shuffle();

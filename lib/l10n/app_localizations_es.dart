@@ -28,17 +28,17 @@ class AppLocalizationsEs extends AppLocalizations {
       'La experiencia de Sudoku donde la mente, los números y la IA se encuentran.';
 
   @override
-  String get newGame => 'Nuevo Juego';
+  String get newGame => 'Nuevo juego';
 
   @override
   String get newGameDialogContent =>
-      '¿Estás seguro de que quieres empezar un juego nuevo? Tu progreso actual se perderá.';
+      '¿Estás seguro de que quieres empezar un nuevo juego? Tu progreso actual se perderá.';
 
   @override
-  String get newGameDialogTitle => '¿Empezar Nuevo Juego?';
+  String get newGameDialogTitle => '¿Empezar un juego nuevo?';
 
   @override
-  String get playAgain => 'Jugar de Nuevo';
+  String get playAgain => 'Jugar de nuevo';
 
   @override
   String get puzzleSolved => 'Has resuelto el puzle.';
@@ -54,7 +54,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get resetDialogNo => 'No';
 
   @override
-  String get resetDialogTitle => '¿Reiniciar Tablero?';
+  String get resetDialogTitle => '¿Reiniciar tablero?';
 
   @override
   String get resetDialogYes => 'Sí';
@@ -69,7 +69,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get resetShort => 'Reiniciar';
 
   @override
-  String get selectDifficulty => 'Seleccionar Dificultad';
+  String get selectDifficulty => 'Seleccionar dificultad';
 
   @override
   String get difficultyEasy => 'Fácil';
@@ -87,19 +87,19 @@ class AppLocalizationsEs extends AppLocalizations {
   String get stats => 'Estadísticas';
 
   @override
-  String get statsDialogTitle => 'Estadísticas del Juego';
+  String get statsDialogTitle => 'Estadísticas del juego';
 
   @override
-  String get statsTotalGames => 'Partidas Totales';
+  String get statsTotalGames => 'Juegos totales';
 
   @override
-  String get statsCompletedGames => 'Partidas Completadas';
+  String get statsCompletedGames => 'Juegos completados';
 
   @override
-  String get statsAverageDuration => 'Duración Promedio';
+  String get statsAverageDuration => 'Duración promedio';
 
   @override
-  String get statsFastestDuration => 'Duración Más Rápida';
+  String get statsFastestDuration => 'Duración más rápida';
 
   @override
   String get close => 'Cerrar';
@@ -109,4 +109,17 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get hint => 'Pista';
+
+  @override
+  String get noHintAvailableTitle => 'No hay pistas disponibles';
+
+  @override
+  String get noMoreHintsMessage => 'No se permiten más pistas en este nivel.';
+
+  @override
+  String get boardIsCorrectMessage =>
+      'El tablero ya está correcto. ¡No hay pistas que dar!';
+
+  @override
+  String get ok => 'Aceptar';
 }

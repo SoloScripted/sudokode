@@ -32,5 +32,9 @@
     "statsFastestDuration": "Schnellste Zeit",
     "close": "Schließen",
     "settings": "Menü",
-    "hint": "Hinweis"
+    "hint": "Hinweis",
+    "noHintAvailableTitle": "Kein Hinweis verfügbar",
+    "noMoreHintsMessage": "Auf diesem Level sind keine weiteren Hinweise erlaubt.",
+    "boardIsCorrectMessage": "Das Spielfeld ist bereits korrekt. Keine Hinweise zu geben!",
+    "ok": "OK"
 }

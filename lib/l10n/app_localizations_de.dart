@@ -109,4 +109,18 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get hint => 'Hinweis';
+
+  @override
+  String get noHintAvailableTitle => 'Kein Hinweis verfügbar';
+
+  @override
+  String get noMoreHintsMessage =>
+      'Auf diesem Level sind keine weiteren Hinweise erlaubt.';
+
+  @override
+  String get boardIsCorrectMessage =>
+      'Das Spielfeld ist bereits korrekt. Keine Hinweise zu geben!';
+
+  @override
+  String get ok => 'OK';
 }

@@ -29,6 +29,11 @@ if (flutterVersionName == null) {
     flutterVersionName = "1.0"
 }
 
+def flutterTargetSdkVersion = localProperties.getProperty('flutter.flutterTargetSdkVersion')
+if (flutterTargetSdkVersion == null) {
+    flutterTargetSdkVersion = '35'
+}
+
 android {
     namespace = "com.soloscripted.sudokode"
     compileSdk = flutter.compileSdkVersion
@@ -45,7 +50,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = flutterTargetSdkVersion.toInteger()
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
         resConfigs "en", "es", "fr", "de", "tr"

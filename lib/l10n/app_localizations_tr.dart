@@ -109,4 +109,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get hint => 'İpucu';
+
+  @override
+  String get noHintAvailableTitle => 'İpucu Mevcut Değil';
+
+  @override
+  String get noMoreHintsMessage =>
+      'Bu seviyede daha fazla ipucuna izin verilmiyor.';
+
+  @override
+  String get boardIsCorrectMessage => 'Tahta zaten doğru. Verilecek ipucu yok!';
+
+  @override
+  String get ok => 'Tamam';
 }
