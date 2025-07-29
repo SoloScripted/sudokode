@@ -48,3 +48,6 @@ app.*.map.json
 !.fvm/fvm_config.json
 .fvm
 .vscode
+
+# Signing keys
+/android/key.properties

@@ -19,7 +19,7 @@ class GameScreen extends StatefulWidget {
   State<GameScreen> createState() => _GameScreenState();
 }
 
-final ThemeData _lightTheme = ThemeData(
+final _lightTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
   colorSchemeSeed: Colors.blue,

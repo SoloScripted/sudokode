@@ -9,6 +9,7 @@ class SudokuCell extends StatelessWidget {
   final VoidCallback? onTap;
   final Color cellBackgroundColor;
   final bool isPaused;
+  final EdgeInsetsGeometry? margin;
 
   static const _initialValueColor = Color(0xFF1565C0);
   static const _animationDuration = Duration(milliseconds: 150);
@@ -22,6 +23,7 @@ class SudokuCell extends StatelessWidget {
     required this.onTap,
     required this.cellBackgroundColor,
     required this.isPaused,
+    this.margin,
   });
 
   Widget _buildContent(BuildContext context) {
@@ -58,25 +60,28 @@ class SudokuCell extends StatelessWidget {
         isConflict ? colorScheme.errorContainer : cellBackgroundColor;
     final borderColor = isSelected ? _initialValueColor : Colors.transparent;
 
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: _animationDuration,
-          decoration: BoxDecoration(
-            color: bgColor,
-            borderRadius: BorderRadius.circular(4.0),
-            border: Border.all(width: 2.0, color: borderColor),
-            boxShadow: [
-              BoxShadow(
-                color: colorScheme.shadow.withAlpha(38),
-                blurRadius: 2,
-                offset: const Offset(1, 1),
-              )
-            ],
+    return Container(
+      margin: margin,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: onTap,
+          child: AnimatedContainer(
+            duration: _animationDuration,
+            decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: BorderRadius.circular(4.0),
+              border: Border.all(width: 2.0, color: borderColor),
+              boxShadow: [
+                BoxShadow(
+                  color: colorScheme.shadow.withAlpha(38),
+                  blurRadius: 2,
+                  offset: const Offset(1, 1),
+                )
+              ],
+            ),
+            child: _buildContent(context),
           ),
-          child: _buildContent(context),
         ),
       ),
     );
