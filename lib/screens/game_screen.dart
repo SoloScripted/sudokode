@@ -111,6 +111,7 @@ class _GameScreenState extends State<GameScreen> {
         if (_sudokuBoard.isSolved()) {
           _stopTimer();
           await GameStats().recordGameCompleted(_stopwatch.elapsed);
+          if (!mounted) return;
           _showSolvedDialog();
         }
       }
@@ -137,18 +138,20 @@ class _GameScreenState extends State<GameScreen> {
 
     try {
       final hintCell = _sudokuBoard.useHint();
-      if (hintCell != null) {
-        setState(() {
-          _selectedRow = hintCell.$1;
-          _selectedCol = hintCell.$2;
-        });
-        if (_sudokuBoard.isSolved()) {
-          _stopTimer();
-          await GameStats().recordGameCompleted(_stopwatch.elapsed);
-          _showSolvedDialog();
-        }
+      
+      setState(() {
+        _selectedRow = hintCell.$1;
+        _selectedCol = hintCell.$2;
+      });
+      if (_sudokuBoard.isSolved()) {
+        _stopTimer();
+        await GameStats().recordGameCompleted(_stopwatch.elapsed);
+        if (!mounted) return;
+        _showSolvedDialog();
       }
+      
     } on NoHintAvailableException catch (e) {
+      if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
       final String message;
       switch (e.reason) {
