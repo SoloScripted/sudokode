@@ -29,7 +29,7 @@ endif
 
 # .PHONY: Declares targets that do not correspond to actual files. This ensures
 # `make` always executes them, even if a file with the same name exists.
-.PHONY: all get run build-web clean analyze format l10n help setup tag
+.PHONY: all get run build-web build-apk build-aab install clean analyze format l10n icons help setup tag
 
 # ------------------------------------------------------------------------------
 # Targets
@@ -88,6 +88,26 @@ run: ## Run the app in debug mode.
 build-web: ## Build the web application.
 	fvm flutter build web
 
+# build-apk: Build the Android APK. Pass RELEASE=false for a debug build.
+build-apk: ## Build the Android APK. Pass RELEASE=false for a debug build.
+	@if [ "$(RELEASE)" = "false" ]; then \
+		echo "Building debug APK..."; \
+		fvm flutter build apk --debug; \
+	else \
+		echo "Building release APK..."; \
+		fvm flutter build apk --release; \
+	fi
+
+# build-aab: Build the Android App Bundle for release.
+build-aab: ## Build the Android App Bundle for release.
+	@echo "Building release Android App Bundle..."
+	fvm flutter build appbundle --release
+
+# install: Install the app on a connected device.
+install: ## Install the app on a connected device.
+	@echo "Installing app on connected device..."
+	fvm flutter install
+
 # clean: Remove build artifacts.
 clean: ## Remove build artifacts.
 	fvm flutter clean
@@ -109,6 +129,11 @@ format: ## Format all .dart files. Pass CHECK=true to exit if not formatted.
 # l10n: Generate localization files.
 l10n: ## Generate localization files.
 	fvm flutter gen-l10n
+
+# icons: Generate launcher icons based on pubspec.yaml configuration.
+icons: ## Generate launcher icons.
+	@echo "Generating launcher icons..."
+	fvm flutter pub run flutter_launcher_icons:main
 
 # tag: Creates and pushes a git tag from the pubspec.yaml version.
 # This target includes checks for the current branch and uncommitted changes.

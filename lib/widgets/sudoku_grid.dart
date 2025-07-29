@@ -26,64 +26,68 @@ class SudokuGrid extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        border: Border.all(
-            color: colorScheme.outline.withAlpha(_kGridOutlineAlpha)),
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: colorScheme.shadow.withAlpha(_kGridShadowAlpha),
-            blurRadius: 10,
-            offset: const Offset(4, 4),
-          )
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          child: GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
+    return AspectRatio(
+      aspectRatio: 1.0,
+      child: Container(
+        decoration: BoxDecoration(
+          color: colorScheme.surface,
+          border: Border.all(
+              color: colorScheme.outline.withAlpha(_kGridOutlineAlpha)),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: colorScheme.shadow.withAlpha(_kGridShadowAlpha),
+              blurRadius: 10,
+              offset: const Offset(4, 4),
+            )
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: GridView.builder(
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+              ),
+              itemCount: 9,
+              itemBuilder: (context, boxIndex) {
+                final boxRow = boxIndex ~/ 3;
+                final boxCol = boxIndex % 3;
+
+                return GridView.builder(
+                  padding: EdgeInsets.zero,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                  ),
+                  itemCount: 9,
+                  itemBuilder: (context, cellInBoxIndex) {
+                    final cellRow = cellInBoxIndex ~/ 3;
+                    final cellCol = cellInBoxIndex % 3;
+                    final row = boxRow * 3 + cellRow;
+                    final col = boxCol * 3 + cellCol;
+                    final isInitial = board.isInitialValue(row, col);
+
+                    return SudokuCell(
+                      margin: const EdgeInsets.all(2.0),
+                      value: board.getValue(row, col),
+                      isInitial: isInitial,
+                      isSelected: row == selectedRow && col == selectedCol,
+                      isConflict: board.isConflict(row, col),
+                      onTap: isInitial ? null : () => onCellTap(row, col),
+                      cellBackgroundColor: (boxIndex % 2 == 0)
+                          ? colorScheme.surface
+                          : colorScheme.surfaceContainer,
+                      isPaused: isPaused,
+                    );
+                  },
+                );
+              },
             ),
-            itemCount: 9,
-            itemBuilder: (context, boxIndex) {
-              final boxRow = boxIndex ~/ 3;
-              final boxCol = boxIndex % 3;
-
-              return GridView.builder(
-                padding: const EdgeInsets.all(2.0),
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 2.0,
-                  crossAxisSpacing: 2.0,
-                ),
-                itemCount: 9,
-                itemBuilder: (context, cellInBoxIndex) {
-                  final cellRow = cellInBoxIndex ~/ 3;
-                  final cellCol = cellInBoxIndex % 3;
-                  final row = boxRow * 3 + cellRow;
-                  final col = boxCol * 3 + cellCol;
-                  final isInitial = board.isInitialValue(row, col);
-
-                  return SudokuCell(
-                    value: board.getValue(row, col),
-                    isInitial: isInitial,
-                    isSelected: row == selectedRow && col == selectedCol,
-                    isConflict: board.isConflict(row, col),
-                    onTap: isInitial ? null : () => onCellTap(row, col),
-                    cellBackgroundColor: (boxIndex % 2 == 0)
-                        ? colorScheme.surface
-                        : colorScheme.surfaceContainer,
-                    isPaused: isPaused,
-                  );
-                },
-              );
-            },
           ),
         ),
       ),
