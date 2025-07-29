@@ -301,6 +301,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hint'**
   String get hint;
+
+  /// No description provided for @noHintAvailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No Hint Available'**
+  String get noHintAvailableTitle;
+
+  /// No description provided for @noMoreHintsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No more hints are allowed at this level.'**
+  String get noMoreHintsMessage;
+
+  /// No description provided for @boardIsCorrectMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The board is already correct. No hints to give!'**
+  String get boardIsCorrectMessage;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
 }
 
 class _AppLocalizationsDelegate

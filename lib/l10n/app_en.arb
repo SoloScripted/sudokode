@@ -32,5 +32,9 @@
     "statsFastestDuration": "Fastest Duration",
     "close": "Close",
     "settings": "Menu",
-    "hint": "Hint"
+    "hint": "Hint",
+    "noHintAvailableTitle": "No Hint Available",
+    "noMoreHintsMessage": "No more hints are allowed at this level.",
+    "boardIsCorrectMessage": "The board is already correct. No hints to give!",
+    "ok": "OK"
 }

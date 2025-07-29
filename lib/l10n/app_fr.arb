@@ -32,5 +32,9 @@
     "statsFastestDuration": "Durée la plus rapide",
     "close": "Fermer",
     "settings": "Menu",
-    "hint": "Indice"
+    "hint": "Indice",
+    "noHintAvailableTitle": "Aucun indice disponible",
+    "noMoreHintsMessage": "Plus aucun indice n'est autorisé à ce niveau.",
+    "boardIsCorrectMessage": "Le tableau est déjà correct. Aucun indice à donner !",
+    "ok": "OK"
 }

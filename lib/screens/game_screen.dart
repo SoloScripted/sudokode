@@ -134,17 +134,45 @@ class _GameScreenState extends State<GameScreen> {
     if (_isPaused) {
       return;
     }
-    final hintCell = _sudokuBoard.useHint();
-    if (hintCell != null) {
-      setState(() {
-        _selectedRow = hintCell.$1;
-        _selectedCol = hintCell.$2;
-      });
-      if (_sudokuBoard.isSolved()) {
-        _stopTimer();
-        await GameStats().recordGameCompleted(_stopwatch.elapsed);
-        _showSolvedDialog();
+
+    try {
+      final hintCell = _sudokuBoard.useHint();
+      if (hintCell != null) {
+        setState(() {
+          _selectedRow = hintCell.$1;
+          _selectedCol = hintCell.$2;
+        });
+        if (_sudokuBoard.isSolved()) {
+          _stopTimer();
+          await GameStats().recordGameCompleted(_stopwatch.elapsed);
+          _showSolvedDialog();
+        }
       }
+    } on NoHintAvailableException catch (e) {
+      final l10n = AppLocalizations.of(context)!;
+      final String message;
+      switch (e.reason) {
+        case NoHintReason.noMoreHints:
+          message = l10n.noMoreHintsMessage;
+          break;
+        case NoHintReason.boardIsCorrect:
+          message = l10n.boardIsCorrectMessage;
+          break;
+      }
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(l10n.noHintAvailableTitle),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(l10n.ok),
+            ),
+          ],
+        ),
+      );
     }
   }
 

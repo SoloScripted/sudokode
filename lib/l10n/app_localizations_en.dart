@@ -109,4 +109,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hint => 'Hint';
+
+  @override
+  String get noHintAvailableTitle => 'No Hint Available';
+
+  @override
+  String get noMoreHintsMessage => 'No more hints are allowed at this level.';
+
+  @override
+  String get boardIsCorrectMessage =>
+      'The board is already correct. No hints to give!';
+
+  @override
+  String get ok => 'OK';
 }
