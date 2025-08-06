@@ -1,0 +1,6 @@
+#include "Generated.xcconfig"
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
+
+// Ensure that dSYM files are generated for release builds to symbolicate crash reports.
+// This is necessary for services like Firebase Crashlytics, Sentry, etc.
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
