@@ -29,7 +29,7 @@ endif
 
 # .PHONY: Declares targets that do not correspond to actual files. This ensures
 # `make` always executes them, even if a file with the same name exists.
-.PHONY: all get run build-web build-apk build-aab install clean analyze format l10n icons help setup tag
+.PHONY: all get run build-web build-apk build-aab build-ios build-ipa install clean analyze format l10n icons help setup tag
 
 # ------------------------------------------------------------------------------
 # Targets
@@ -103,6 +103,21 @@ build-aab: ## Build the Android App Bundle for release.
 	@echo "Building release Android App Bundle..."
 	fvm flutter build appbundle --release
 
+# build-ios: Build the iOS application. Pass RELEASE=false for a debug build.
+build-ios: ## Build the iOS application. Pass RELEASE=false for a debug build.
+	@if [ "$(RELEASE)" = "false" ]; then \
+		echo "Building debug iOS application..."; \
+		fvm flutter build ios --debug; \
+	else \
+		echo "Building release iOS application..."; \
+		fvm flutter build ios --release; \
+	fi
+
+# build-ipa: Build the iOS App Archive (.ipa) for release.
+build-ipa: ## Build the iOS App Archive (.ipa) for release.
+	@echo "Building release iOS App Archive..."
+	fvm flutter build ipa --release
+
 # install: Install the app on a connected device.
 install: ## Install the app on a connected device.
 	@echo "Installing app on connected device..."
@@ -133,7 +148,7 @@ l10n: ## Generate localization files.
 # icons: Generate launcher icons based on pubspec.yaml configuration.
 icons: ## Generate launcher icons.
 	@echo "Generating launcher icons..."
-	fvm flutter pub run flutter_launcher_icons:main
+	fvm flutter pub run flutter_launcher_icons
 
 # tag: Creates and pushes a git tag from the pubspec.yaml version.
 # This target includes checks for the current branch and uncommitted changes.
