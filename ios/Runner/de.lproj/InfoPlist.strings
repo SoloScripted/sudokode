@@ -1,0 +1,5 @@
+/* 
+  InfoPlist.strings
+  Runner
+*/
+"NSUserTrackingUsageDescription" = "Dies ermöglicht es uns, Ihnen personalisierte Werbung bereitzustellen und unsere Dienste zu verbessern.";
