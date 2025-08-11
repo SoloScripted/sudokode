@@ -47,5 +47,7 @@
 	<true/>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>This allows us to provide you with personalized ads and improve our services.</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>

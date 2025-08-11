@@ -81,9 +81,17 @@ get: ## Get project dependencies. Pass CLEAN_LOCK=true to force a clean get.
 	fvm flutter pub get
 
 # run: Run the app in debug mode.
-run: ## Run the app in debug mode.
-	fvm flutter run
-
+run: ## Run the app. Pass RELEASE=true for release mode, PROFILE=true for profile mode.
+	@if [ "$(RELEASE)" = "true" ]; then \
+		echo "Running the app in release mode..."; \
+		fvm flutter run --release; \
+	elif [ "$(PROFILE)" = "true" ]; then \
+		echo "Running the app in profile mode..."; \
+		fvm flutter run --profile; \
+	else \
+		echo "Running the app in debug mode..."; \
+		fvm flutter run; \
+	fi
 # build-web: Build the web application.
 build-web: ## Build the web application.
 	fvm flutter build web
