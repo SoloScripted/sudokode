@@ -1,5 +1,2 @@
-/* 
-  InfoPlist.strings
-  Runner
-*/
+/* Localized versions of Info.plist keys */
 "NSUserTrackingUsageDescription" = "Bu, size kişiselleştirilmiş reklamlar sunmamızı ve hizmetlerimizi iyileştirmemizi sağlar.";
