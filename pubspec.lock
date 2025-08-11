@@ -152,10 +152,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "1d0dcc7013a15f3e1e31866a794b711117a00130"
+      resolved-ref: ca7d0f06ea5d08534a8f60bae766d486b5e6c033
       url: "https://github.com/SoloScripted/flutter-shared-components.git"
     source: git
-    version: "0.0.4"
+    version: "0.0.7+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
