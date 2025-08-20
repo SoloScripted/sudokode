@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:sudokode/l10n/app_localizations.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sudokode/models/difficulty.dart';
 import 'package:sudokode/models/sudoku_board.dart';
 import 'package:sudokode/services/game_stats.dart';
@@ -34,12 +37,16 @@ class _GameScreenState extends State<GameScreen> {
   String _elapsedTime = '00:00';
   bool _isPaused = false;
   Difficulty _currentDifficulty = Difficulty.medium;
+  BannerAd? _bannerAd;
+  RewardedAd? _rewardedAd;
 
   bool get _isCellSelected => _selectedRow != null && _selectedCol != null;
 
   @override
   void initState() {
     super.initState();
+    _loadBannerAd();
+    _loadRewardedAd();
     _sudokuBoard = SudokuBoard();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _selectDifficultyAndStartGame(isCancellable: false);
@@ -48,9 +55,90 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   void dispose() {
+    _bannerAd?.dispose();
+    _rewardedAd?.dispose();
     _stopwatch.stop();
     _timer?.cancel();
     super.dispose();
+  }
+
+  void _loadBannerAd() {
+    // Ads are not supported on web, so we do nothing.
+    if (kIsWeb) {
+      return;
+    }
+
+    final adUnitId = Platform.isAndroid
+        ? 'ca-app-pub-9378360412585533/5895920315'
+        : 'ca-app-pub-9378360412585533/7212570099';
+
+    _bannerAd = BannerAd(
+      adUnitId: adUnitId,
+      request: const AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) => setState(() {}),
+        onAdFailedToLoad: (ad, err) => ad.dispose(),
+      ),
+    )..load();
+  }
+
+  void _loadRewardedAd() {
+    if (kIsWeb) {
+      return;
+    }
+
+    // Use test ad unit IDs for development.
+    final adUnitId = Platform.isAndroid
+        ? 'ca-app-pub-9378360412585533/4998057024'
+        : 'ca-app-pub-9378360412585533/9070213727';
+
+    RewardedAd.load(
+      adUnitId: adUnitId,
+      request: const AdRequest(),
+      rewardedAdLoadCallback: RewardedAdLoadCallback(
+        onAdLoaded: (RewardedAd ad) {
+          debugPrint('Rewarded ad loaded.');
+          setState(() {
+            _rewardedAd = ad;
+          });
+          // Set a full-screen content callback to handle events.
+          _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (RewardedAd ad) {
+              ad.dispose();
+              _loadRewardedAd(); // Load a new ad after this one is dismissed.
+            },
+            onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
+              debugPrint('Failed to show rewarded ad: $error');
+              ad.dispose();
+              _loadRewardedAd();
+            },
+          );
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          debugPrint('RewardedAd failed to load: $error');
+        },
+      ),
+    );
+  }
+
+  void _showRewardedAd() {
+    if (_rewardedAd == null) {
+      debugPrint('Warning: Rewarded ad is not ready yet.');
+      return;
+    }
+
+    _rewardedAd!.show(
+        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+      debugPrint('User earned reward of ${reward.amount} ${reward.type}');
+      // Reward the user with an extra hint.
+      _grantExtraHint();
+      _onHintTap();
+    });
+  }
+
+  void _grantExtraHint() {
+    _sudokuBoard.grantExtraHint();
   }
 
   void _startTimer() {
@@ -155,8 +243,8 @@ class _GameScreenState extends State<GameScreen> {
       final String message;
       switch (e.reason) {
         case NoHintReason.noMoreHints:
-          message = l10n.noMoreHintsMessage;
-          break;
+          _showRewardedAd();
+          return;
         case NoHintReason.boardIsCorrect:
           message = l10n.boardIsCorrectMessage;
           break;
@@ -407,68 +495,78 @@ class _GameScreenState extends State<GameScreen> {
     return Theme(
       data: _lightTheme,
       child: Scaffold(
-        body: Builder(builder: (context) {
-          return Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: componentWidth,
-                      child: GameHeader(
-                        elapsedTime: _elapsedTime,
-                        isBoardModified: _sudokuBoard.isModified(),
-                        onResetTap: () => _onResetTap(context),
-                        onNewGameTap: () => _onNewGameTap(context),
-                        onTimerTap: _togglePause,
-                        onStatsTap: _showStatsDialog,
-                        onHintTap: _onHintTap,
-                        isPaused: _isPaused,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      width: componentWidth,
-                      height: componentWidth,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SudokuGrid(
-                          board: _sudokuBoard,
-                          selectedRow: _selectedRow,
-                          selectedCol: _selectedCol,
-                          onCellTap: _onCellTap,
-                          isPaused: _isPaused,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    AnimatedOpacity(
-                      opacity: _isPaused ? 0.0 : 1.0,
-                      duration: const Duration(milliseconds: 300),
-                      child: IgnorePointer(
-                        ignoring: _isPaused,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              width: componentWidth,
-                              child: NumberPad(
-                                onNumberTap: _onNumberTap,
-                                onEraseTap: _onEraseTap,
-                                getOccurrences: _sudokuBoard.countOccurrences,
+        body: Column(
+          children: [
+            Expanded(
+              child: Builder(builder: (context) {
+                return Center(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: componentWidth,
+                            child: GameHeader(
+                              elapsedTime: _elapsedTime,
+                              isBoardModified: _sudokuBoard.isModified(),
+                              onResetTap: () => _onResetTap(context),
+                              onNewGameTap: () => _onNewGameTap(context),
+                              onTimerTap: _togglePause,
+                              onStatsTap: _showStatsDialog,
+                              onHintTap: _onHintTap,
+                              isPaused: _isPaused,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            width: componentWidth,
+                            height: componentWidth,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SudokuGrid(
+                                board: _sudokuBoard,
+                                selectedRow: _selectedRow,
+                                selectedCol: _selectedCol,
+                                onCellTap: _onCellTap,
+                                isPaused: _isPaused,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(height: 8),
+                          AnimatedOpacity(
+                            opacity: _isPaused ? 0.0 : 1.0,
+                            duration: const Duration(milliseconds: 300),
+                            child: IgnorePointer(
+                              ignoring: _isPaused,
+                              child: SizedBox(
+                                width: componentWidth,
+                                child: NumberPad(
+                                  onNumberTap: _onNumberTap,
+                                  onEraseTap: _onEraseTap,
+                                  getOccurrences: _sudokuBoard.countOccurrences,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
+                );
+              }),
+            ),
+            if (_bannerAd != null)
+              SafeArea(
+                child: SizedBox(
+                  width: _bannerAd!.size.width.toDouble(),
+                  height: _bannerAd!.size.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd!),
                 ),
               ),
-            ),
-          );
-        }),
+          ],
+        ),
       ),
     );
   }
