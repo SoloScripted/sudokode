@@ -69,8 +69,8 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     final adUnitId = Platform.isAndroid
-        ? 'ca-app-pub-9378360412585533/5895920315' 
-        : 'ca-app-pub-9378360412585533/7212570099'; 
+        ? 'ca-app-pub-9378360412585533/5895920315'
+        : 'ca-app-pub-9378360412585533/7212570099';
 
     _bannerAd = BannerAd(
       adUnitId: adUnitId,
@@ -128,7 +128,8 @@ class _GameScreenState extends State<GameScreen> {
       return;
     }
 
-    _rewardedAd!.show(onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+    _rewardedAd!.show(
+        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
       debugPrint('User earned reward of ${reward.amount} ${reward.type}');
       // Reward the user with an extra hint.
       _grantExtraHint();
@@ -244,7 +245,6 @@ class _GameScreenState extends State<GameScreen> {
         case NoHintReason.noMoreHints:
           _showRewardedAd();
           return;
-          break;
         case NoHintReason.boardIsCorrect:
           message = l10n.boardIsCorrectMessage;
           break;

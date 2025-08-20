@@ -229,5 +229,4 @@ class SudokuBoard {
   void grantExtraHint() {
     maxHints++;
   }
-
 }
